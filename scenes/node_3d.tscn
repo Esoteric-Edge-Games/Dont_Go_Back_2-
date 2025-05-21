@@ -64,12 +64,11 @@ script = ExtResource("3_5t4e2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5037, 0, 0)
 mesh = SubResource("BoxMesh_xvgsr")
 
-[node name="Enemy1" type="StaticBody3D" parent="."]
+[node name="Stalker" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9648, 5.19088, 7.61105)
 script = ExtResource("4_xvgsr")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5037, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stalker"]
 mesh = SubResource("BoxMesh_xvgsr")
 
 [node name="Enemy2" type="StaticBody3D" parent="."]
