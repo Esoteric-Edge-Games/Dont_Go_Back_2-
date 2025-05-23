@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
 [ext_resource type="Script" uid="uid://gyjgknk41w1k" path="res://Scripts/enemy_scripts/enemy_0.gd" id="3_5t4e2"]
-[ext_resource type="Script" uid="uid://baqd20d8n4l5a" path="res://scenes/la_lucecita.gd" id="3_a6664"]
+[ext_resource type="Script" uid="uid://baqd20d8n4l5a" path="res://Scripts/la_lucecita.gd" id="3_a6664"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
 

@@ -28,11 +28,28 @@ var light_post: LightPost
 func is_within_range(position: Vector3) -> bool:
 	return position.distance_to(player.position) < 100.0 #Distancia provisoria. NO final
 
-func chase_player(position: Vector3):
-	var direction = (player.position - position).normalized()
-	
-	return position - (direction * 5.0) if (light_post.is_on) else position + (direction * speed)
+func chase_player(position: Vector3) -> Vector3:
+	if light_post.is_on:
+		position = respawn_position()  
+	else:
+		await delay_respawn(0.7)
+		var direction = (player.position - position).normalized()
+		position += direction * speed  
 
+	return position
+
+func respawn_position() -> Vector3:
+	var spawn_offset = Vector3(150, 0, 150) # lejos de la distancia donde se vuelve a triggerear (100)
+	return position + spawn_offset  
+	
+func delay_respawn(seconds: float) -> void:
+	var timer = Timer.new()
+	timer.wait_time = seconds
+	timer.one_shot = true
+	add_child(timer)  
+	timer.start()
+	await timer.timeout  # Espera a que se complete el Timer
+	timer.queue_free()  # Elimina el Timer después de usarlo
 
 func _ready():
 	Global.register_enemy(self)
