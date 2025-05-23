@@ -19,17 +19,35 @@ anti observación : te obliga dejar de mirar
 
 extends StaticBody3D
 
-# Define the class
-class luz:
-	var my_property
-	func _init(value):
-		my_property = value
-	func my_method():
-		print(my_property)
+class_name Runner  
+
+var speed: float = 7.5 #Esta velocidad para que el jugador sienta "prisa"
+var player: Node
+var light_post: LightPost 
+
+func is_within_range(position: Vector3) -> bool:
+	return position.distance_to(player.position) < 100.0 #Distancia provisoria. NO final
+
+func chase_player(position: Vector3):
+	var direction = (player.position - position).normalized()
+	
+	# Si poste estar encedido, bicho andar en reversa
+	if light_post.is_on:
+		position -= direction * 5.0
+	else:
+		position += direction * speed
+
+	return position
 
 
 func _ready():
 	Global.register_enemy(self)
+	light_post = LightPost.new()  
+	get_tree().current_scene.add_child(light_post)  
+	light_post.start_timer()  
+	player = $Player
 
 func spawn_enemy():
+	var enemy = Runner.new()
 	print("enemigo 2 spawneado")
+	add_child(enemy)
