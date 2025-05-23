@@ -31,13 +31,7 @@ func is_within_range(position: Vector3) -> bool:
 func chase_player(position: Vector3):
 	var direction = (player.position - position).normalized()
 	
-	# Si poste estar encedido, bicho andar en reversa
-	if light_post.is_on:
-		position -= direction * 5.0
-	else:
-		position += direction * speed
-
-	return position
+	return position - (direction * 5.0) if (light_post.is_on) else position + (direction * speed)
 
 
 func _ready():

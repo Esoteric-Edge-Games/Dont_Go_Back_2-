@@ -8,7 +8,7 @@ var is_on: bool = false
 func _ready():
 	timer = Timer.new()
 	timer.wait_time = 5.0
-	timer.connect("timeout", self, "_toggle_light")
+	timer.timeout.connect(_toggle_light)
 	add_child(timer)  
 
 func start_timer():
