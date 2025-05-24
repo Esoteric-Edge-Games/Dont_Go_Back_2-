@@ -48,8 +48,8 @@ func delay_respawn(seconds: float) -> void:
 	timer.one_shot = true
 	add_child(timer)  
 	timer.start()
-	await timer.timeout  # Espera a que se complete el Timer
-	timer.queue_free()  # Elimina el Timer después de usarlo
+	await timer.timeout  
+	timer.queue_free()  
 
 func _ready():
 	Global.register_enemy(self)
