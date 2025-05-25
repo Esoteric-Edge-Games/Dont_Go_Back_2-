@@ -31,16 +31,18 @@ func is_within_range(position: Vector3) -> bool:
 func chase_player(position: Vector3) -> Vector3:
 	if light_post.is_on:
 		position = respawn_position()  
+		await delay_respawn(0.7) #este delay estaba en el else. Menos mal que lo vi
 	else:
-		await delay_respawn(0.7)
 		var direction = (player.position - position).normalized()
 		position += direction * speed  
 
 	return position
 
 func respawn_position() -> Vector3:
-	var spawn_offset = Vector3(150, 0, 150) # lejos de la distancia donde se vuelve a triggerear (100)
-	return position + spawn_offset  
+	var positions = light_post.get_positions()
+	if positions.size() > 0:
+		return positions[randi() % positions.size()]  
+	return position  
 	
 func delay_respawn(seconds: float) -> void:
 	var timer = Timer.new()
@@ -53,9 +55,7 @@ func delay_respawn(seconds: float) -> void:
 
 func _ready():
 	Global.register_enemy(self)
-	light_post = LightPost.new()  
-	get_tree().current_scene.add_child(light_post)  
-	light_post.start_timer()  
+	light_post = $LightPost
 	player = $Player
 
 func spawn_enemy():
