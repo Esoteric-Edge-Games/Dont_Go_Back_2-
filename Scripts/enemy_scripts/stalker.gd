@@ -1,10 +1,10 @@
 extends StaticBody3D
 
 var enemyIsSpawned = false
-const TIME_FOR_STALKER_KILLS_PLAYER = 10
-var currentTimeNotLookingAtStalker = 0
-const TIME_FOR_STALKER_TO_DISSAPEAR = 30
-var currentTimeLookingAtStalker = 0
+const TIME_FOR_STALKER_KILLS_PLAYER = 10 #Seconds
+var currentTimeNotLookingAtStalker = 0 #Seconds
+const TIME_FOR_STALKER_TO_DISSAPEAR = 10 #Seconds
+var currentTimeLookingAtStalker = 0 #Seconds
 func _ready():
 	Global.register_enemy(self)
 
