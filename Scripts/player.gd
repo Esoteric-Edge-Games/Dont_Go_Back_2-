@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var mouse_sensitivity := 0.1
+@export var mouse_sensitivity := 0.01
 @onready var head = $Camera3D
 
 
@@ -53,11 +53,14 @@ func _physics_process(delta):
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)  # Oculta y captura el mouse
+	
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+		$Camera3D.rotate_x(-event.relative.y * mouse_sensitivity)
+		$Camera3D.rotation.x = clampf($Camera3D.rotation.x, -deg_to_rad(80),deg_to_rad(80)) #es como el FOV pero en Y
 
 		# Limitar la rotación vertical para evitar que gire completamente
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -89, 89)
@@ -65,3 +68,7 @@ func _unhandled_input(event):
 	# Presionar ESC para liberar el mouse
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func update_flashlight():
+	$FlashLight.rotation_degrees = head.rotation_degrees
+	#Quiero que la linterna siga el pov del player. Ayuda alejo

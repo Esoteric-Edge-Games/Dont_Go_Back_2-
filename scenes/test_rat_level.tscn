@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0jgbhyc8nm1"]
+
+[ext_resource type="PackedScene" uid="uid://deahsvf1bctw2" path="res://scenes/player.tscn" id="1_0pf2c"]
+
+[node name="Test Rat Level" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03662, -0.367676, 0.820558)
+size = Vector3(3.07324, 0.264648, 3.19318)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.480011, 0.304886, -0.730218)
+size = Vector3(4.177, 1.0802, 0.108398)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.428991, 0.288202, 0.851316)
+size = Vector3(0.123047, 1, 3.06879)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.443328, 0.273155, 1.66169)
+size = Vector3(1.87109, 1, 0.10791)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.879634, 0.0868883, 0.846175)
+size = Vector3(1, 1.35168, 1.58789)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.11901, 0.829946, 0.860863)
+size = Vector3(3.12701, 0.0592041, 3.19592)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.990784, 0.175293, 2.5378)
+size = Vector3(2.98157, 1.35059, 0.259277)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.90808, -0.39624, 0.834488)
+size = Vector3(2.71289, 0.20752, 3.18643)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07933, 0.851706, 0.881137)
+size = Vector3(2.79382, 0.0884399, 3.25165)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.82163, 0.153905, 2.51654)
+size = Vector3(2.95813, 1.48425, 0.190186)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91554, 0.0630339, -0.749811)
+size = Vector3(3.08932, 1.6499, 0.165527)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.407843, 0.021961, -0.912788, 0.91284, 0.0117488, 0.408149, 0.0196875, -0.99969, -0.0152552, 2.26089, 0.750478, 1.04897)
+spot_range = 2.92926
+spot_angle = 21.2952
+
+[node name="Player" parent="." instance=ExtResource("1_0pf2c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41873, -0.77905, 0.815566)

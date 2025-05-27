@@ -1,18 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=10 format=3 uid="uid://dqgm20jm1doap"]
 
-[ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://scripts/main_game.gd" id="1_ns6u7"]
-[ext_resource type="Script" uid="uid://debe6m436sgay" path="res://scripts/player.gd" id="2_5t4e2"]
-[ext_resource type="Script" uid="uid://gyjgknk41w1k" path="res://scripts/enemy_scripts/enemy_0.gd" id="3_5t4e2"]
-[ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
-[ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
-
-[sub_resource type="GDScript" id="GDScript_a202f"]
-script/source = "extends Camera3D
-"
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a0tk4"]
+[ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
+[ext_resource type="PackedScene" uid="uid://deahsvf1bctw2" path="res://scenes/player.tscn" id="2_oqwcg"]
+[ext_resource type="Script" uid="uid://gyjgknk41w1k" path="res://Scripts/enemy_scripts/enemy_0.gd" id="3_5t4e2"]
+[ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
+[ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
 
@@ -23,24 +15,11 @@ script/source = "extends Camera3D
 [sub_resource type="BoxMesh" id="BoxMesh_xvgsr"]
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00110292, 4.76837e-07, 0.0153861)
 script = ExtResource("1_ns6u7")
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("2_oqwcg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.13973, 0)
-script = ExtResource("2_5t4e2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18227, 0)
-mesh = SubResource("CapsuleMesh_noarx")
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74228, -0.385038)
-fov = 80.0
-script = SubResource("GDScript_a202f")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18008, 0)
-shape = SubResource("CapsuleShape3D_a0tk4")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(19.011, 0, 0, 0, 1, 0, 0, 0, 15.4823, 0, 0, 0)
@@ -51,6 +30,7 @@ transform = Transform3D(2.05923, 0, 0, 0, 1, 0, 0, 0, 2.03117, 0, 0, 0)
 shape = SubResource("BoxShape3D_a202f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000300635, 0.00804424, 7.39943e-06)
 mesh = SubResource("PlaneMesh_noarx")
 
 [node name="La lucecita" type="DirectionalLight3D" parent="."]
