@@ -18,3 +18,9 @@ func register_enemy(enemy):
 	enemies.append(enemy)
 func _spawn_enemy():
 	enemies[enemyToSpawn].spawn_enemy()
+
+
+## Al poner variables acá, desordeno el flujo del archivo. Pero prefiero esto a mezclar estas variables con las otras
+
+var textLanguage = "English"
+var soundLanguage = "Spanish"
