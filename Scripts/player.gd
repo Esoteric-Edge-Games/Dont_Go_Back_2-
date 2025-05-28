@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var mouse_sensitivity := 0.01
+@export var mouse_sensitivity := 0.1
 @onready var head = $Camera3D
 
 
@@ -59,8 +59,6 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
-		$Camera3D.rotate_x(-event.relative.y * mouse_sensitivity)
-		$Camera3D.rotation.x = clampf($Camera3D.rotation.x, -deg_to_rad(80),deg_to_rad(80)) #es como el FOV pero en Y
 
 		# Limitar la rotación vertical para evitar que gire completamente
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -89, 89)
