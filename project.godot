@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://scripts/autoload.gd"
+Lang="*res://scripts/language_manager.gd"
 
 [input]
 
