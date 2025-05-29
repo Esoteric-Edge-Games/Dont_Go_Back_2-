@@ -8,8 +8,6 @@
 [ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
-radius = 0.2
-height = 0.4
 
 [sub_resource type="GDScript" id="GDScript_a202f"]
 script/source = "extends Camera3D
@@ -51,12 +49,12 @@ fov = 80.0
 script = SubResource("GDScript_a202f")
 
 [node name="FlashLight" type="MeshInstance3D" parent="Player/Camera3D"]
-transform = Transform3D(2.5833e-05, -0.00774915, 0.99997, 0.999994, 0.00333364, 3.08276e-11, -0.00333354, 0.999964, 0.0077492, 0.233249, -0.15034, -0.0581612)
+transform = Transform3D(2.5833e-05, -0.00774915, 0.99997, 0.999994, 0.00333364, 3.08276e-11, -0.00333354, 0.999964, 0.0077492, 0.316614, -0.149046, -0.120725)
 mesh = SubResource("CylinderMesh_oqwcg")
 skeleton = NodePath("../..")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Player/Camera3D/FlashLight"]
-transform = Transform3D(0.626501, -0.76848, -0.130135, 0.0587634, -0.119917, 0.991044, -0.777203, -0.628537, -0.0299696, 0.00194645, -0.196941, 0.00699249)
+transform = Transform3D(0.626501, -0.768481, -0.130135, 0.0587634, -0.119917, 0.991044, -0.777203, -0.628536, -0.0299696, 0.00194693, -0.197021, 0.0172787)
 light_color = Color(1, 1, 0.592157, 1)
 spot_range = 6.0
 spot_angle = 28.66
