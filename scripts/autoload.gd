@@ -12,6 +12,7 @@ var canSpawnAntiLightEnemy = true
 var canSpawnAntiLookEnemy = true
 var enemyToSpawn = 0
 var enemies : Array = []
+var watcherIsSpawned = false
 
 
 func register_enemy(enemy):
