@@ -7,7 +7,6 @@ extends CharacterBody3D
 
 @export var speed = 5.0
 var gravity = 20
-var fear = 0.0
 var delayTimer: Timer
 var isSprint = false
 var speedWalk = 5.0
@@ -45,7 +44,7 @@ func _physics_process(delta):
 		isSprint = true
 		speed = speedRun
 		_update_fear(0.5 * get_process_delta_time()) #Not Reduction Fear
-		print("Fear ascendiendo:",fear)
+		print("Fear ascendiendo:",Global.fear)
 		delayTimer.stop() 
 	else:
 		isSprint = false
@@ -57,16 +56,16 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _update_fear(amount: float):
-	fear += amount
-	fear = clamp(fear, 0, 100)
+	Global.fear += amount
+	Global.fear = clamp(Global.fear, 0, 100)
 	
 func _on_delay_timeout():
-	fear -= 0.25  #Reduction Fear 
-	fear = clamp(fear, 0, 100)
-	print("Fear descendiendo:", fear)
+	Global.fear -= 0.25  #Reduction Fear 
+	Global.fear = clamp(Global.fear, 0, 100)
+	print("Fear descendiendo:", Global.fear)
 	
 func _check_game_over():
-	if fear >= 100:
+	if Global.fear >= 100:
 		print("Game Over")
 
 func _ready():
