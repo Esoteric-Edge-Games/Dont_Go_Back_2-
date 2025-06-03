@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @export var mouse_sensitivity := 0.1
 @onready var head = $Camera3D
-
+@onready var flashlight = $Camera3D/FlashLight/SpotLight3D
 
 
 @export var speed = 5.0
@@ -75,6 +75,7 @@ func _ready():
 	delayTimer.one_shot = true
 	delayTimer.timeout.connect(_on_delay_timeout)
 	add_child(delayTimer)
+
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
