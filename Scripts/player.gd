@@ -71,7 +71,7 @@ func _check_game_over():
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)  # Oculta y captura el mouse
 	delayTimer = Timer.new()
-	delayTimer.wait_time = 0.1
+	delayTimer.wait_time = 0
 	delayTimer.one_shot = true
 	delayTimer.timeout.connect(_on_delay_timeout)
 	add_child(delayTimer)
