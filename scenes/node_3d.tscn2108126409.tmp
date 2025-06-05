@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=18 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
 [ext_resource type="Script" uid="uid://gyjgknk41w1k" path="res://Scripts/enemy_scripts/enemy_0.gd" id="3_5t4e2"]
 [ext_resource type="Script" uid="uid://baqd20d8n4l5a" path="res://Scripts/la_lucecita.gd" id="3_a6664"]
-[ext_resource type="Script" uid="uid://bs8oa2m5ehbx8" path="res://Scripts/spot_light_3d.gd" id="4_10v3s"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
 
@@ -22,7 +21,7 @@ script/source = "extends Camera3D
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_noarx"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_10v3s"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_a6664"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xvgsr"]
 
@@ -67,16 +66,9 @@ mesh = SubResource("PlaneMesh_noarx")
 transform = Transform3D(1, 0, 0, 0, -0.511083, 0.859531, 0, -0.859531, -0.511083, 0, 0.464642, -0.0688725)
 script = ExtResource("3_a6664")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="La lucecita"]
-transform = Transform3D(1, 0, 0, 0, 0.841426, -0.540372, 0, 0.540372, 0.841426, 0, -1.22451, 2.05936)
-spot_range = 3.941
-spot_attenuation = -3.53
-spot_angle = 36.63
-script = ExtResource("4_10v3s")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="La lucecita"]
-transform = Transform3D(0.203964, 0, 0, 0, 0.316669, 0.154422, 0, -0.520501, 0.0939494, 0, -0.162561, 0.273392)
-mesh = SubResource("CylinderMesh_10v3s")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.226407, 0.380767)
+mesh = SubResource("CylinderMesh_a6664")
 
 [node name="Enemy0" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 2.59544, 3.80552)
@@ -95,7 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5037, 0, 0)
 mesh = SubResource("BoxMesh_xvgsr")
 
 [node name="Runner" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.91401, 1.62617, 0.498143)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5982, 1.62617, -13.8776)
 script = ExtResource("5_oqwcg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Runner"]
