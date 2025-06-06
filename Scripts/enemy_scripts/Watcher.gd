@@ -4,9 +4,10 @@ class_name Watcher
 #Variables y constancias que hacen que el enemigo "Watcher" spawnee
 @onready var cameraPlayer = $"../Player/Node3D/Camera3D"
 @onready var player = $"../Player"
-@onready var rng = RandomNumberGenerator.new()
 
 var watcherAppears = false 
+var player_looking_watcher = false
+var player_not_looking_watcher = false
 
 const ENEMY_DURATION = 3.0
 var enemyTimer = ENEMY_DURATION
@@ -35,11 +36,20 @@ func _physics_process(delta):
 	var to_enemy = (global_transform.origin - cameraPlayer.global_transform.origin).normalized()
 	var dot_value = camera_forward.dot(to_enemy)
 	if dot_value > 0.95:
+		player_looking_watcher = true
+
+	if player_looking_watcher:
 		player_is_looking_at_watcher(delta)
+
 	else:
+		player_not_looking_watcher = true
+
+	if player_not_looking_watcher:
 		player_is_not_looking_at_watcher(delta)
+
 	if enemyTimer <= 0.0:
 		print("Watcher kills the player")
+
 	if timeNotLookedAt >= NOT_LOOK_THRESHOLD:
 		enemy_dissapear()
 	
@@ -77,12 +87,11 @@ func restore_vars():
 	global_transform.origin = Vector3(9999, 9999, 0)
 	cameraPlayer.unfocus_on_watcher()
 	watcherAppears = false
+	player_looking_watcher = false
+	player_not_looking_watcher = false
 
 func _ready():
-	rng.randomize()
 	Global.register_enemy(self)
 
 func spawn_enemy():
-	var enemy = Watcher.new()
-	print("Watcher Spawneado")
-	add_child(enemy)
+	pass
