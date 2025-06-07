@@ -11,6 +11,7 @@ var delayTimer: Timer
 var isSprint = false
 var speedWalk = 5.0
 var speedRun = 10.0
+var limitForReset = -12 #I'll be using Z-position because is where camera is facing. Can be changed later
 
 func _physics_process(delta):
 	var direction = Vector3()
@@ -52,8 +53,8 @@ func _physics_process(delta):
 		if delayTimer.is_stopped(): 
 			delayTimer.start()
 
-
 	move_and_slide()
+	check_reset()
 
 func _update_fear(amount: float):
 	Global.fear += amount
@@ -92,3 +93,7 @@ func _unhandled_input(event):
 	# Presionar ESC para liberar el mouse
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func check_reset():
+	if global_transform.origin.z <= limitForReset: #Change "z" if wanted
+		global_transform.origin.z = 0
