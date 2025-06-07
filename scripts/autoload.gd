@@ -14,6 +14,8 @@ var enemyToSpawn = 0
 var enemies : Array = []
 var watcherIsSpawned = false
 
+var fear = 0.0
+
 
 func register_enemy(enemy):
 	enemies.append(enemy)
