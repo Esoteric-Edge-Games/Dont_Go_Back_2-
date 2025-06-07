@@ -1,5 +1,5 @@
 extends StaticBody3D
-class_name Watcher
+class_name watcher
 
 #Variables y constancias que hacen que el enemigo "Watcher" spawnee
 @onready var cameraPlayer = $"../Player/Node3D/Camera3D"
