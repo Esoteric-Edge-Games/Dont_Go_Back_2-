@@ -4,7 +4,7 @@ extends Node
 ## La llamada a este archivo es mediante "Lang". Ej: "Lang.textLanguage" devuelve el idioma actual
 
 var textLanguage = "English"
-var soundLanguage = "Español" ## This name has to be EXACTLY equal to folder's name containing that language
+var soundLanguage = "Espaniol" ## This name has to be EXACTLY equal to folder's name containing that language
 var translations = {} ## Dictionary, contains the texts
 
 func _ready():
