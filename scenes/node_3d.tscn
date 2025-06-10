@@ -1,36 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=17 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_a6664"]
-[ext_resource type="Script" uid="uid://gyjgknk41w1k" path="res://Scripts/enemy_scripts/enemy_0.gd" id="3_5t4e2"]
 [ext_resource type="Script" uid="uid://txsqnuh3i66c" path="res://Scripts/spot_light_3d.gd" id="3_10v3s"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a0tk4"]
-
-[sub_resource type="GDScript" id="GDScript_t3l2h"]
-script/source = "extends Node3D
-
-@export var rotation_speed := 2.0
-var look_at_enemy_watcher := false
-var enemy_ref: Node3D = null
-var default_rotation: Basis
-
-
-
-func _process(delta):
-	if look_at_enemy_watcher and enemy_ref:
-		var to_enemy = (enemy_ref.global_transform.origin - global_transform.origin).normalized()
-		var target_basis = Transform3D().looking_at(to_enemy, Vector3.UP).basis
-		# Suavemente rotar hacia el watcher (solo un poco)
-		rotation = rotation.slerp(target_basis.get_euler(), delta * rotation_speed)
-	else:
-		# Volver suavemente a la rotación original
-		rotation = rotation.slerp(default_rotation.get_euler(), delta * rotation_speed)
-"
 
 [sub_resource type="GDScript" id="GDScript_a202f"]
 script/source = "extends Camera3D
@@ -60,6 +36,7 @@ func unfocus_on_watcher():
 	look_at_enemy_watcher = false
 	enemy_ref = null
 "
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_oqwcg"]
 top_radius = 0.05
 bottom_radius = 0.05
@@ -70,11 +47,131 @@ margin = 0.187
 radius = 0.2
 height = 0.48
 
+[sub_resource type="GDScript" id="GDScript_t3l2h"]
+script/source = "extends Node3D
+
+@export var rotation_speed := 2.0
+var look_at_enemy_watcher := false
+var enemy_ref: Node3D = null
+var default_rotation: Basis
+
+
+
+func _process(delta):
+	if look_at_enemy_watcher and enemy_ref:
+		var to_enemy = (enemy_ref.global_transform.origin - global_transform.origin).normalized()
+		var target_basis = Transform3D().looking_at(to_enemy, Vector3.UP).basis
+		# Suavemente rotar hacia el watcher (solo un poco)
+		rotation = rotation.slerp(target_basis.get_euler(), delta * rotation_speed)
+	else:
+		# Volver suavemente a la rotación original
+		rotation = rotation.slerp(default_rotation.get_euler(), delta * rotation_speed)
+"
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_noarx"]
+
+[sub_resource type="GDScript" id="GDScript_a8auw"]
+script/source = "extends StaticBody3D
+
+#Variables y constancias que hacen que el enemigo \"Watcher\" spawnee
+@onready var cameraPlayer = $\"../Player/Node3D/Camera3D\"
+@onready var player = $\"../Player\"
+
+var watcherAppears = false 
+var player_looking_watcher = false
+var player_not_looking_watcher = false
+
+const ENEMY_DURATION = 3.0
+var enemyTimer = ENEMY_DURATION
+var timeNotLookedAt = 0.0
+const NOT_LOOK_THRESHOLD = 3.0
+
+var orbit_angle = 0.0  # Radianes
+var orbit_speed = 1.0 # rotation velocity
+var orbit_radius = 5.0  # how far orbit the player
+
+
+func _physics_process(delta):
+	# this code make the watcher orbit the player 
+	orbit_angle += orbit_speed * delta
+	var playerPosition = player.global_transform.origin 
+	var x = cos(orbit_angle) * orbit_radius
+	var z = sin(orbit_angle) * orbit_radius
+	var enemy_pos = player.global_transform.origin + Vector3(x, 2.5, z)
+	# Movimiento suave hacia la nueva posición
+	global_transform.origin = global_transform.origin.lerp(enemy_pos, delta * 5.0)
+	# the watcher looks the player
+	look_at(playerPosition, Vector3.UP)
+	
+	# this code make when the watcher spawn, appears in front of the player 
+	var camera_forward = -cameraPlayer.global_transform.basis.z.normalized()
+	var to_enemy = (global_transform.origin - cameraPlayer.global_transform.origin).normalized()
+	var dot_value = camera_forward.dot(to_enemy)
+	if dot_value > 0.95:
+		player_looking_watcher = true
+
+	if player_looking_watcher:
+		player_is_looking_at_watcher(delta)
+
+	else:
+		player_not_looking_watcher = true
+
+	if player_not_looking_watcher:
+		player_is_not_looking_at_watcher(delta)
+
+	if enemyTimer <= 0.0:
+		print(\"Watcher kills the player\")
+
+	if timeNotLookedAt >= NOT_LOOK_THRESHOLD:
+		enemy_dissapear()
+	
+	if watcherAppears:
+		dragg_camera(delta)
+
+func dragg_camera(delta):
+	#This code make the camera dragg to the watcher
+	cameraPlayer.focus_on_watcher(self)
+
+func watcher_is_in_front_of_the_player():
+	watcherAppears = true
+	enemyTimer = ENEMY_DURATION
+	timeNotLookedAt = 0.0
+
+func enemy_dissapear():
+	print(\"Enemy disappears because player did not look\")
+	restore_vars()
+
+func player_is_looking_at_watcher(delta):
+	# If the player is looking the Watcher and the \"enemyTimer\" is equals 0.0, the player will die
+	enemyTimer -= delta
+	timeNotLookedAt = 0.0
+	print(\"Player looking at enemy. Time until kill: \", enemyTimer)
+
+func player_is_not_looking_at_watcher(delta):
+	# if the player is dont looking the watcher, the watcher will disappear
+	timeNotLookedAt += delta
+	print(\"Player not looking at enemy for: \", timeNotLookedAt, \" seconds\")
+
+func restore_vars():
+	# this restore the variables for a future spawn of the watcher
+	enemyTimer = ENEMY_DURATION
+	timeNotLookedAt = 0.0
+	global_transform.origin = Vector3(9999, 9999, 0)
+	cameraPlayer.unfocus_on_watcher()
+	watcherAppears = false
+	player_looking_watcher = false
+	player_not_looking_watcher = false
+
+func _ready():
+	Global.register_enemy(self)
+
+func spawn_enemy():
+	pass
+"
 
 [sub_resource type="BoxMesh" id="BoxMesh_xvgsr"]
 
@@ -138,7 +235,7 @@ transform = Transform3D(1, 0, 0, 0, -0.511083, 0.859531, 0, -0.859531, -0.511083
 
 [node name="Watcher" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 5.94797, 3.80552)
-script = ExtResource("3_5t4e2")
+script = SubResource("GDScript_a8auw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Watcher"]
 mesh = SubResource("BoxMesh_xvgsr")
