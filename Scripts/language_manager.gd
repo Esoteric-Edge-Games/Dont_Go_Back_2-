@@ -3,8 +3,8 @@ extends Node
 ## Este archivo se va a encargar de gestionar la carga de los JSON, y de guardar los idiomas
 ## La llamada a este archivo es mediante "Lang". Ej: "Lang.textLanguage" devuelve el idioma actual
 
-var textLanguage = "English"
-var soundLanguage = "Espaniol" ## This name has to be EXACTLY equal to folder's name containing that language
+var textLanguage = "english"
+var soundLanguage = "spanish" ## This name has to be EXACTLY equal to folder's name containing that language
 var translations = {} ## Dictionary, contains the texts
 
 func _ready():
