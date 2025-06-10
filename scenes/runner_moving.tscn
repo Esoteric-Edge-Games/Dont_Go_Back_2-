@@ -1,0 +1,339 @@
+[gd_scene load_steps=21 format=3 uid="uid://doyin5n2o4hub"]
+
+[ext_resource type="PackedScene" uid="uid://5xn4x5blss04" path="res://Runner/RunnerMoving.fbx" id="1_5hgf8"]
+[ext_resource type="Texture2D" uid="uid://c42ayjxnxak7s" path="res://Runner/Runner/Runner low_Body_BaseColor.png" id="2_0vyso"]
+[ext_resource type="Texture2D" uid="uid://c45me4hb4nuk1" path="res://Runner/Runner/Runner low_Body_Height.png" id="3_dsgjp"]
+[ext_resource type="Texture2D" uid="uid://cp8rp7hv2nhsg" path="res://Runner/Runner/Runner low_Body_Metallic.png" id="4_ggb60"]
+[ext_resource type="Texture2D" uid="uid://b4yq374yww2xm" path="res://Runner/Runner/Runner low_Body_Normal.png" id="5_lk7b6"]
+[ext_resource type="Texture2D" uid="uid://crhk0icb6jkys" path="res://Runner/Runner/Runner low_Body_Roughness.png" id="6_mlx50"]
+[ext_resource type="Texture2D" uid="uid://o48n41hrypot" path="res://Runner/Runner/Runner low_Eye_BaseColor.png" id="7_a0h85"]
+[ext_resource type="Texture2D" uid="uid://da73u10gk8pk8" path="res://Runner/Runner/Runner low_Eye_Emissive.png" id="8_jpuxg"]
+[ext_resource type="Texture2D" uid="uid://drwav2pqd5ibu" path="res://Runner/Runner/Runner low_Eye_Height.png" id="9_siq4y"]
+[ext_resource type="Texture2D" uid="uid://b7myt4wi1dqms" path="res://Runner/Runner/Runner low_Eye_Metallic.png" id="10_e5wf0"]
+[ext_resource type="Texture2D" uid="uid://d4knks83qly54" path="res://Runner/Runner/Runner low_Eye_Normal.png" id="11_ldjoh"]
+[ext_resource type="Texture2D" uid="uid://bbjmmr06pdv1g" path="res://Runner/Runner/Runner low_Eye_Roughness.png" id="12_mo6vd"]
+[ext_resource type="Texture2D" uid="uid://c41yotrkeoxvh" path="res://Runner/Runner/Runner low_Theet_BaseColor.png" id="13_lyu05"]
+[ext_resource type="Texture2D" uid="uid://dsneek2wl7q2i" path="res://Runner/Runner/Runner low_Theet_Height.png" id="14_apegx"]
+[ext_resource type="Texture2D" uid="uid://bnqqkse71c5qc" path="res://Runner/Runner/Runner low_Theet_Metallic.png" id="15_clvld"]
+[ext_resource type="Texture2D" uid="uid://b1fusv6cfxmyt" path="res://Runner/Runner/Runner low_Theet_Normal.png" id="16_ddm8g"]
+[ext_resource type="Texture2D" uid="uid://rakg7lp071vu" path="res://Runner/Runner/Runner low_Theet_Roughness.png" id="17_ifhbg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_maf2f"]
+albedo_texture = ExtResource("2_0vyso")
+metallic = 1.0
+metallic_texture = ExtResource("4_ggb60")
+roughness_texture = ExtResource("6_mlx50")
+normal_enabled = true
+normal_texture = ExtResource("5_lk7b6")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_dsgjp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oran6"]
+albedo_texture = ExtResource("7_a0h85")
+metallic = 1.0
+metallic_texture = ExtResource("10_e5wf0")
+roughness_texture = ExtResource("12_mo6vd")
+emission_enabled = true
+emission_texture = ExtResource("8_jpuxg")
+normal_enabled = true
+normal_texture = ExtResource("11_ldjoh")
+heightmap_enabled = true
+heightmap_texture = ExtResource("9_siq4y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wmtfr"]
+albedo_texture = ExtResource("13_lyu05")
+metallic = 1.0
+metallic_texture = ExtResource("15_clvld")
+roughness_texture = ExtResource("17_ifhbg")
+normal_enabled = true
+normal_texture = ExtResource("16_ddm8g")
+heightmap_enabled = true
+heightmap_texture = ExtResource("14_apegx")
+
+[node name="RunnerMoving" instance=ExtResource("1_5hgf8")]
+
+[node name="Skeleton3D" parent="Runner/FitSkeleton" index="0"]
+bones/1/rotation = Quaternion(0.999841, 0.0178195, -1.29613e-17, -7.27249e-16)
+
+[node name="FKOffsetTail0_M" parent="Runner/MotionSystem/FKSystem/FKParentConstraintToRoot_M" index="0"]
+transform = Transform3D(0.999365, 0.0356333, 8.74228e-08, 0.0356333, -0.999365, 2.2447e-11, 8.73681e-08, 3.09273e-09, -1, 0.0445414, -4.66534e-11, -9.96021e-11)
+
+[node name="FKTail0_M" parent="Runner/MotionSystem/FKSystem/FKParentConstraintToRoot_M/FKOffsetTail0_M/FKExtraTail0_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.51168e-17, 0, -0.00728)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/FKSystem/FKParentConstraintToRoot_M/FKOffsetTail0_M/FKExtraTail0_M/FKTail0_M" index="0"]
+bones/4/position = Vector3(0, 0, -0.06496)
+bones/8/position = Vector3(0, 0, 0.01624)
+bones/12/position = Vector3(0, 0, 0.06272)
+bones/16/position = Vector3(0, 0, -0.00728)
+bones/20/position = Vector3(0, 0, -0.06496)
+
+[node name="FKParentConstraintToHead_M" parent="Runner/MotionSystem/FKSystem" index="1"]
+transform = Transform3D(1.25441e-08, 4.18728e-08, 1, 0.957938, -0.286975, 0, 0.286975, 0.957938, -4.37114e-08, -0.000720976, 0.0588755, -0.0634423)
+
+[node name="FKJaw_M" parent="Runner/MotionSystem/FKSystem/FKParentConstraintToHead_M/FKOffsetJaw_M/FKExtraJaw_M" index="0"]
+transform = Transform3D(0.999995, -0.00330838, 0, 0.00330838, 0.999995, 0, 0, 0, 1, -9.12255e-05, 3.0364e-05, -1.49363e-08)
+
+[node name="FKNeck1_M" parent="Runner/MotionSystem/FKSystem/FKParentConstraintToChest_M/FKOffsetNeck1_M/FKExtraNeck1_M" index="0"]
+transform = Transform3D(0.999578, 0, 0.0290382, 0, 1, 0, -0.0290382, 0, 0.999578, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/FKSystem/FKParentConstraintToChest_M/FKOffsetNeck1_M/FKExtraNeck1_M/FKNeck1_M" index="0"]
+bones/4/rotation = Quaternion(0, -0.0145206, 0, 0.999895)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/IKSystem/IKJoints/IKParentConstraintTail0_M/IKXOffsetTail0_M" index="0"]
+bones/0/position = Vector3(-1.67734e-12, 4.70407e-11, 0.00728)
+bones/2/position = Vector3(0.0746613, 8.94526e-11, 0.0138517)
+bones/2/rotation = Quaternion(-0.000307532, -0.0741592, -0.00312999, 0.997241)
+bones/4/position = Vector3(0.0742739, -4.51856e-07, 2.71834e-09)
+bones/4/rotation = Quaternion(0.00041758, 0.288076, -0.00481374, 0.957595)
+bones/6/position = Vector3(0.081034, 1.47737e-05, -4.72848e-08)
+bones/6/rotation = Quaternion(0.00036888, 0.0431259, 6.76186e-06, 0.99907)
+bones/8/position = Vector3(0.0831687, 9.41833e-07, 2.23383e-09)
+bones/8/rotation = Quaternion(-0.00816323, -0.161118, -0.00216368, 0.986899)
+bones/10/position = Vector3(0.0783608, 0.000147381, -5.41398e-05)
+bones/10/rotation = Quaternion(-0.0167876, -0.0752108, 0.219281, 0.972614)
+bones/12/position = Vector3(0.0789381, -7.31157e-06, 0.000105303)
+bones/12/rotation = Quaternion(-0.00204971, -0.0235656, -7.43486e-07, 0.99972)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/IKSystem/IKJoints/IKParentConstraintTail0_M" index="1"]
+bones/0/rotation = Quaternion(0.995401, -0.00935854, -0.0920503, 0.024829)
+bones/1/position = Vector3(0.0787019, 7.10543e-17, 1.67002e-10)
+bones/1/rotation = Quaternion(-0.000446687, 0.0303212, -0.00286888, 0.999536)
+bones/2/position = Vector3(0.0774323, -8.08242e-16, 1.64304e-10)
+bones/2/rotation = Quaternion(0.000605561, 0.290246, -0.00352033, 0.956945)
+bones/3/position = Vector3(0.077429, 1.46549e-16, 1.64279e-10)
+bones/3/rotation = Quaternion(0.000420491, 0.0322533, -0.000775043, 0.999479)
+bones/4/position = Vector3(0.0759828, 1.61648e-15, 1.6121e-10)
+bones/4/rotation = Quaternion(-0.0154424, -0.157182, 0.0396523, 0.986652)
+bones/5/position = Vector3(0.0809665, 4.07585e-14, 1.71785e-10)
+bones/5/rotation = Quaternion(-0.0176716, -0.0822136, 0.134841, 0.987293)
+bones/7/position = Vector3(0.0831229, -2.13163e-16, 1.60465e-10)
+bones/8/rotation = Quaternion(6.82109e-05, 0.0922619, 0.000736165, 0.995735)
+
+[node name="IKSpSplineTailOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints" index="3"]
+transform = Transform3D(0, 0, -1, -0.0155384, -0.999879, 0, -0.999879, 0.0155384, 0, -0.00728, -0.0359699, -0.12689)
+
+[node name="IKSpTail1FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineTailOffset_M" index="1"]
+transform = Transform3D(0.992283, 0.00673665, -0.123813, -0.00667633, 0.999977, 0.000902059, 0.123816, -6.84815e-05, 0.992305, 0.077362, -9.26441e-06, 0.0144604)
+
+[node name="IKSpTail2FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineTailOffset_M" index="2"]
+transform = Transform3D(0.893772, 0.0161711, 0.448231, -0.0148468, 0.999869, -0.00646824, -0.448277, -0.000873682, 0.893894, 0.154197, -0.000528427, 0.0240478)
+
+[node name="IKSpTail3FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineTailOffset_M" index="3"]
+transform = Transform3D(0.863018, 0.0162657, 0.504911, -0.0140612, 0.999868, -0.0081768, -0.504977, -4.28986e-05, 0.863133, 0.223401, -0.00167026, -0.0106619)
+
+[node name="IKSpTail4FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineTailOffset_M" index="4"]
+transform = Transform3D(0.977139, 0.0237245, 0.211274, -0.027422, 0.999518, 0.0145881, -0.210826, -0.0200481, 0.977318, 0.288975, -0.00273833, -0.0490314)
+
+[node name="IKSpTail5FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineTailOffset_M" index="5"]
+transform = Transform3D(0.909151, -0.414084, 0.044484, 0.413801, 0.91023, 0.0158244, -0.0470433, 0.00402076, 0.998885, 0.368146, -0.00456341, -0.0661782)
+
+[node name="IKSpTail6FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineTailOffset_M" index="6"]
+transform = Transform3D(0.909151, -0.414084, 0.044484, 0.413801, 0.91023, 0.0158244, -0.0470433, 0.00402076, 0.998885, 0.439827, 0.0280632, -0.0699014)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset_M" index="0"]
+bones/0/position = Vector3(1.84534e-09, 4.16684e-13, 0.00728)
+bones/0/rotation = Quaternion(-7.08946e-05, -0.0915921, -0.000701648, 0.995796)
+bones/0/scale = Vector3(1.05412, 1.05412, 1.05412)
+bones/2/position = Vector3(0.0746612, -0.000105126, 0.0211317)
+bones/2/rotation = Quaternion(-0.000287024, -0.0741593, -0.00340577, 0.997241)
+bones/2/scale = Vector3(1.05412, 1.05412, 1.05412)
+bones/3/position = Vector3(0.148116, -0.000606487, 0.0321176)
+bones/3/rotation = Quaternion(0.00159134, 0.216263, -0.00690395, 0.97631)
+bones/3/scale = Vector3(1.05412, 1.05412, 1.05412)
+bones/4/position = Vector3(0.221563, -0.00164311, -0.00210305)
+bones/4/rotation = Quaternion(0.00209065, 0.258164, -0.00782065, 0.966067)
+bones/4/scale = Vector3(1.05412, 1.05412, 1.05412)
+bones/5/position = Vector3(0.293635, -0.00281006, -0.0435909)
+bones/5/rotation = Quaternion(-0.00294974, 0.0994508, 0.0390822, 0.99427)
+bones/5/scale = Vector3(1.05412, 1.05412, 1.05412)
+bones/6/position = Vector3(0.370207, 0.00323391, -0.0591058)
+bones/6/rotation = Quaternion(-0.00403806, 0.0233073, 0.169355, 0.985271)
+bones/6/scale = Vector3(1.05412, 1.05412, 1.05412)
+bones/7/position = Vector3(0.442158, 0.0287218, -0.06272)
+bones/7/scale = Vector3(1.05412, 1.05412, 1.05412)
+
+[node name="IKAcPociXformTail0_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00728, -0.0359699, -0.12689)
+
+[node name="IKAcPociXformTail1_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0211317, -0.0370249, -0.201544)
+
+[node name="IKAcPociXformTail2_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0321176, -0.037665, -0.274998)
+
+[node name="IKAcPociXformTail3_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00210305, -0.0377697, -0.348452)
+
+[node name="IKAcPociXformTail4_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0435909, -0.0377228, -0.420533)
+
+[node name="IKAcPociXformTail5_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0591058, -0.0449558, -0.497002)
+
+[node name="IKAcPociXformTail6_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset3_M" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06272, -0.0715586, -0.568548)
+
+[node name="IKAcSplineTailOffset2_M" parent="Runner/MotionSystem/IKSystem/IKJoints" index="6"]
+transform = Transform3D(0, 0, -1, -0.0155384, -0.999879, 0, -0.999879, 0.0155384, 0, -0.00728, -0.0359699, -0.12689)
+
+[node name="IKAcTail1FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset2_M" index="0"]
+transform = Transform3D(0.988981, 0.00628832, -0.147907, -0.0061971, 0.99998, 0.0010776, 0.147911, -0.000149133, 0.989001, 0.0746613, 8.94528e-11, 0.0138517)
+
+[node name="IKAcTail2FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset2_M" index="1"]
+transform = Transform3D(0.906336, 0.0159355, 0.422256, -0.0147413, 0.999873, -0.00609342, -0.4223, -0.000701905, 0.906456, 0.148117, -0.000460734, 0.0248376)
+
+[node name="IKAcTail3FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset2_M" index="2"]
+transform = Transform3D(0.866579, 0.0162636, 0.498774, -0.014116, 0.999868, -0.00807742, -0.49884, -4.0981e-05, 0.866694, 0.221561, -0.0016405, -0.00938305)
+
+[node name="IKAcTail4FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset2_M" index="3"]
+transform = Transform3D(0.980188, 0.0145529, 0.197531, -0.017592, 0.999752, 0.0136392, -0.197284, -0.0168439, 0.980202, 0.293633, -0.00281357, -0.0508709)
+
+[node name="IKAcTail5FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset2_M" index="4"]
+transform = Transform3D(0.908526, -0.415446, 0.0445604, 0.415164, 0.909608, 0.0158516, -0.047118, 0.0040983, 0.998881, 0.370433, -0.00404549, -0.0663858)
+
+[node name="IKAcTail6FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineTailOffset2_M" index="5"]
+transform = Transform3D(0.909577, -0.415536, 0, 0.415536, 0.909577, 0, 0, 0, 1, 0.442158, 0.0287218, -0.07)
+
+[node name="IKSpSplineNeckOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints" index="7"]
+transform = Transform3D(-0.0290383, 6.75209e-08, 0.999578, 0.997307, -0.0673805, 0.0289723, 0.0673521, 0.997727, 0.00195655, 3.23992e-11, -0.0143319, -0.0684138)
+
+[node name="IKSpNeck5FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineNeckOffset_M" index="1"]
+transform = Transform3D(0.999578, -0.000564665, -0.0290382, 0.000564903, 1, 9.09495e-13, 0.0290382, -1.64038e-05, 0.999578, 0.0248181, -2.66454e-17, 0.000720976)
+
+[node name="IKSpHeadFollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKSpSplineNeckOffset_M" index="2"]
+transform = Transform3D(0.974686, -0.221683, -0.0290382, 0.221777, 0.975098, -4.65661e-10, 0.0283151, -0.00643999, 0.999578, 0.0733555, 2.74305e-05, 0.00213101)
+
+[node name="IKAcSplineNeckOffset2_M" parent="Runner/MotionSystem/IKSystem/IKJoints" index="10"]
+transform = Transform3D(-0.0290383, 6.75209e-08, 0.999578, 0.997307, -0.0673805, 0.0289723, 0.0673521, 0.997727, 0.00195655, 3.23992e-11, -0.0143319, -0.0684138)
+
+[node name="IKAcNeck5FollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineNeckOffset2_M" index="0"]
+transform = Transform3D(0.999578, -0.000564677, -0.0290382, 0.000564916, 1, 9.09495e-13, 0.0290382, -1.64041e-05, 0.999578, 0.0248181, -2.66454e-17, 0.000720976)
+
+[node name="IKAcHeadFollowOffset_M" parent="Runner/MotionSystem/IKSystem/IKJoints/IKAcSplineNeckOffset2_M" index="1"]
+transform = Transform3D(0.974686, -0.221683, -0.0290382, 0.221777, 0.975098, -4.65661e-10, 0.0283151, -0.00643999, 0.999578, 0.0733555, 2.74305e-05, 0.00213101)
+
+[node name="IKcvOffsetSplineTail1_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0177053, -0.03713, -0.201542)
+
+[node name="IKcvOffsetSplineTail2_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0486414, -0.0378107, -0.274996)
+
+[node name="IKcvOffsetSplineTail3_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0019492, -0.0377723, -0.34845)
+
+[node name="IKcvOffsetSplineTail4_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0525016, -0.0377193, -0.420532)
+
+[node name="IKcvOffsetSplineTail5_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0608704, -0.0376808, -0.497341)
+
+[node name="IKOffsetSplineTail2_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0160533, -0.0376693, -0.275935)
+
+[node name="IKSplineTail2_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain/IKOffsetSplineTail2_M/IKExtraSplineTail2_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06496, 0, 0)
+
+[node name="IKOffsetSplineTail3_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0393867, -0.0377201, -0.424988)
+
+[node name="IKSplineTail3_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain/IKOffsetSplineTail3_M/IKExtraSplineTail3_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01624, 0, 0)
+
+[node name="IKSplineTail1_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain/IKOffsetConstrainedSplineTail1_M/IKhybridOffsetSplineTail1_M/IKOffsetSplineTail1_M/IKExtraSplineTail1_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00728, 0, 0)
+
+[node name="IKSplineTail4_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain/IKOffsetConstrainedSplineTail1_M/IKhybridOffsetSplineTail1_M/IKhybridFollowSplineTail1_M/IKhybridExtraSplineTail1_M/IKhybridSplineTail1_M/IKhybridOffsetSplineTail2_M/IKhybridExtraSplineTail2_M/IKhybridSplineTail2_M/IKhybridOffsetSplineTail3_M/IKhybridExtraSplineTail3_M/IKhybridSplineTail3_M/IKhybridOffsetSplineTail4_M/IKhybridExtraSplineTail4_M/IKhybridSplineTail4_M/IKOffsetSplineTail4_M/IKExtraSplineTail4_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06272, 0, 0)
+
+[node name="IKFollowEndSplineTail1_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain/IKFollowEndSplineTail_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00728, -0.0359699, -0.12689)
+
+[node name="IKFollowEndSplineTail4_M" parent="Runner/MotionSystem/IKSystem/IKHandle/IKHandleFollowMain/IKFollowEndSplineTail_M" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06272, -0.0715586, -0.568548)
+
+[node name="FKIKSplineNeck_M" parent="Runner/MotionSystem/FKIKSystem/FKIKParentConstraintSplineNeck_M" index="0"]
+transform = Transform3D(1.21269e-07, 0.887152, 0.461477, -4.03436e-08, -0.461477, 0.887152, 1, -1.26201e-07, -2.01718e-08, 0.0452117, -0.0149513, 0.0264635)
+
+[node name="TwistFollowSplineTail2_M" parent="Runner/MotionSystem/TwistSystem/TwistFollowOffsetSplineTail2_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46775e-11, 2.01734e-10, 0.0489067)
+
+[node name="TwistFollowParentSplineTail2_M" parent="Runner/MotionSystem/TwistSystem/TwistFollowParentOffsetSplineTail2_M" index="0"]
+transform = Transform3D(1, -1.18829e-16, -2.24644e-11, 1.18828e-16, 1, -2.24639e-11, 2.24644e-11, 2.24639e-11, 1, 2.46775e-11, 2.00275e-10, -0.0160533)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/TwistSystem/TwistFollowParentOffsetSplineTail2_M/TwistFollowParentSplineTail2_M" index="0"]
+bones/0/position = Vector3(7.10543e-17, 1.45926e-12, 0.06496)
+
+[node name="TwistFollowSplineTail3_M" parent="Runner/MotionSystem/TwistSystem/TwistFollowOffsetSplineTail3_M" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.73161e-11, 3.53144e-10, -0.0556267)
+
+[node name="TwistFollowParentSplineTail3_M" parent="Runner/MotionSystem/TwistSystem/TwistFollowParentOffsetSplineTail3_M" index="0"]
+transform = Transform3D(1, -1.18829e-16, -2.24644e-11, 1.18828e-16, 1, -2.24639e-11, 2.24644e-11, 2.24639e-11, 1, 6.73161e-11, 3.53509e-10, -0.0393867)
+
+[node name="Skeleton3D" parent="Runner/MotionSystem/TwistSystem/TwistFollowParentOffsetSplineTail3_M/TwistFollowParentSplineTail3_M" index="0"]
+bones/0/position = Vector3(7.10543e-17, -3.64815e-13, -0.01624)
+
+[node name="Skeleton3D" parent="Runner/DeformationSystem" index="0"]
+bones/1/position = Vector3(0.0445414, -4.70706e-11, -0.00728)
+bones/1/rotation = Quaternion(0.999841, 0.0178195, 1.02555e-16, 5.75428e-15)
+bones/1/scale = Vector3(0.993498, 0.993498, 0.993498)
+bones/2/position = Vector3(0.0751499, 9.0038e-11, 0.0139423)
+bones/2/rotation = Quaternion(-0.000307532, -0.0741592, -0.00312999, 0.997241)
+bones/2/scale = Vector3(0.989653, 0.989653, 0.989653)
+bones/3/position = Vector3(0.0752525, -4.57809e-07, 2.75415e-09)
+bones/3/rotation = Quaternion(0.00041758, 0.288076, -0.00481374, 0.957595)
+bones/3/scale = Vector3(0.985788, 0.985788, 0.985788)
+bones/4/position = Vector3(0.0826461, 1.50677e-05, -4.82255e-08)
+bones/4/rotation = Quaternion(0.00036888, 0.043126, 6.76185e-06, 0.99907)
+bones/4/scale = Vector3(0.981902, 0.981902, 0.981902)
+bones/5/position = Vector3(0.0853895, 9.66983e-07, 2.29348e-09)
+bones/5/rotation = Quaternion(-0.00816323, -0.161118, -0.00216368, 0.986899)
+bones/5/scale = Vector3(0.99114, 0.99114, 0.99114)
+bones/6/position = Vector3(0.0799197, 0.000150313, -5.52168e-05)
+bones/6/rotation = Quaternion(-0.0167875, -0.0752108, 0.219281, 0.972614)
+bones/6/scale = Vector3(0.995011, 0.995011, 0.995011)
+bones/7/position = Vector3(0.0799781, -7.40789e-06, 0.00010669)
+bones/7/rotation = Quaternion(-0.0020497, -0.0235656, -7.43357e-07, 0.99972)
+bones/9/rotation = Quaternion(0.00297176, 0.0142133, -0.204636, 0.97873)
+bones/10/rotation = Quaternion(4.10137e-06, -0.0145206, 0.000282422, 0.999895)
+bones/15/position = Vector3(-0.0226419, 0.047043, -1.49362e-08)
+bones/15/rotation = Quaternion(-4.08448e-15, -2.16963e-15, 0.718877, 0.695138)
+
+[node name="Body2" parent="Runner/DeformationSystem/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_maf2f")
+
+[node name="Eye_R" parent="Runner/DeformationSystem/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_oran6")
+
+[node name="Eye_L" parent="Runner/DeformationSystem/Skeleton3D" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_oran6")
+
+[node name="pCylinder11" parent="Runner/DeformationSystem/Skeleton3D" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder10" parent="Runner/DeformationSystem/Skeleton3D" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder5" parent="Runner/DeformationSystem/Skeleton3D" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder3" parent="Runner/DeformationSystem/Skeleton3D" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder9" parent="Runner/DeformationSystem/Skeleton3D" index="7"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder2" parent="Runner/DeformationSystem/Skeleton3D" index="8"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder7" parent="Runner/DeformationSystem/Skeleton3D" index="9"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder6" parent="Runner/DeformationSystem/Skeleton3D" index="10"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder8" parent="Runner/DeformationSystem/Skeleton3D" index="11"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")
+
+[node name="pCylinder4" parent="Runner/DeformationSystem/Skeleton3D" index="12"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wmtfr")

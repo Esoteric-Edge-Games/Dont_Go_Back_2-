@@ -18,7 +18,7 @@ func chase_player(delta: float) -> void:
 	# Verifica si el jugador está bajo la luz
 	var is_under_light = light_post.check_player_in_range(player.position, delta)  
 
-	if player.position.distance_to(global_position) < 10.0:  # Si el jugador está a 10 unidades
+	if player.position.distance_to(global_position) < 30.0:  # Si el jugador está a 10 unidades
 		if is_under_light:
 			global_position = respawn_position()  # Respawn a 20 unidades
 		else:
