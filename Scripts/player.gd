@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 @export var mouse_sensitivity := 0.1
-@onready var head = $Camera3D
-@onready var flashlight = $Camera3D/FlashLight/SpotLight3D
+@onready var head = $Node3D/Camera3D
+@onready var flashlight = $Node3D/Camera3D/FlashLight/SpotLight3D
 
 
 @export var speed = 5.0

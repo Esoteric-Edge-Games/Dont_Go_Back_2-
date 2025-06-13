@@ -1,8 +1,9 @@
 extends StaticBody3D
 
 #Variables y constancias que hacen que el enemigo "Watcher" spawnee
-@onready var cameraPlayer = get_node("/root/Node3D/Player/Camera3D")
+@onready var cameraPlayer = get_node("/root/Node3D/Player/Node3D/Camera3D")
 @onready var player = get_node("/root/Node3D/Player")
+@onready var watcherFlying = get_node("/root/Node3D/Watcher/Watcher/AnimationPlayer")
 
 var watcherAppears = false 
 var player_looking_watcher = false
@@ -14,13 +15,16 @@ var timeNotLookedAt = 0.0
 const NOT_LOOK_THRESHOLD = 3.0
 
 var orbit_angle = 0.0  # Radianes
-var orbit_speed = 1.0 # rotation velocity
+var orbit_speed = 0.55 # rotation velocity
 var orbit_radius = 5.0  # how far orbit the player
 
 
 func _physics_process(delta):
-
+	
+	
 	if watcherAppears:
+		watcherFlying.play("Flying")
+		
 		# this code make the watcher orbit the player 
 		orbit_angle += orbit_speed * delta
 		var playerPosition = player.global_transform.origin 
@@ -61,6 +65,7 @@ func watcher_is_in_front_of_the_player():
 
 func enemy_dissapear():
 	print("Enemy disappears because player did not look")
+	watcherFlying.stop()
 	restore_vars()
 
 func player_is_looking_at_watcher(delta):
@@ -88,5 +93,7 @@ func _ready():
 	Global.register_enemy(self)
 
 func spawn_enemy():
-	watcherAppears = true
+	if not watcherAppears:
+		global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
+		watcherAppears = true
 	print("Watcher Spawneado")
