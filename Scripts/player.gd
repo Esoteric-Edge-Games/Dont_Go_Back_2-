@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @export var mouse_sensitivity := 0.1
 @onready var head = $Camera3D
-@onready var flashlight = $Camera3D/FlashLight/SpotLight3D
+@onready var flashlight = $Camera3D/FlashLight/Linterna
 
 
 @export var speed = 5.0
@@ -53,9 +53,10 @@ func _physics_process(delta):
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)  # Oculta y captura el mouse
-	flashlight.visible = true
+#	flashlight.visible = true
 	
 func _process(_delta):
+	pass
 	if Input.is_action_just_pressed("toggle_flashlight"):
 		flashlight.toggle_flashlight()
 	
