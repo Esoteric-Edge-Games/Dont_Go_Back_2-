@@ -6,6 +6,7 @@ var timer = 0
 
 func _ready():
 	Global.enemyToSpawn = -1
+	
 func _process(delta):
 	timer += 0.1
 	if (timer >= 3):
