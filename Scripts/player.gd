@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 @export var mouse_sensitivity := 0.1
-@onready var head = $Camera3D
-@onready var flashlight = $Camera3D/FlashLight/SpotLight3D
+@onready var head = $Node3D/Camera3D
+@onready var flashlight = $Node3D/Camera3D/FlashLight/SpotLight3D
 
 
 @export var speed = 5.0
@@ -84,6 +84,8 @@ func _process(_delta):
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
+		
+
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
 
