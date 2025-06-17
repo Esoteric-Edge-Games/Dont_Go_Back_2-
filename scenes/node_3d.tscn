@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
 [ext_resource type="Script" uid="uid://txsqnuh3i66c" path="res://Scripts/spot_light_3d.gd" id="3_10v3s"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
-[ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://Scenes/watcher.tscn" id="5_ifh66"]
+[ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://scenes/watcher.tscn" id="5_ifh66"]
 [ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]

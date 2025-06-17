@@ -47,6 +47,7 @@ func _physics_process(delta):
 			player_is_not_looking_at_watcher(delta)
 
 		if enemyTimer <= 0.0:
+			#Aca debe de agregarse la escena de muerte del jugador o algo similar
 			print("Watcher kills the player")
 
 		if timeNotLookedAt >= NOT_LOOK_THRESHOLD:
