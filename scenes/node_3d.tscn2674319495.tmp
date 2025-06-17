@@ -1,0 +1,157 @@
+[gd_scene load_steps=17 format=3 uid="uid://dqgm20jm1doap"]
+
+[ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
+[ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_a6664"]
+[ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
+[ext_resource type="Script" uid="uid://txsqnuh3i66c" path="res://Scripts/spot_light_3d.gd" id="3_10v3s"]
+[ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
+[ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://Scenes/watcher.tscn" id="5_ifh66"]
+[ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a0tk4"]
+margin = 0.187
+radius = 0.2
+height = 0.48
+
+[sub_resource type="GDScript" id="GDScript_t3l2h"]
+script/source = "extends Node3D
+
+@onready var player = get_node(\"/root/Node3D/Player\")
+ 
+@export var rotation_speed := 1.0
+var look_at_enemy_watcher := false
+var enemy_ref: Node3D = null
+var default_rotation: Basis
+
+func _ready():
+	default_rotation = global_transform.basis
+
+func _process(delta):
+	if look_at_enemy_watcher and enemy_ref:
+		var my_pos = player.global_transform.origin
+		var enemy_pos = enemy_ref.global_transform.origin
+		var to_enemy = (enemy_pos - my_pos).normalized()
+		var target_basis = Transform3D().looking_at(to_enemy, Vector3.UP).basis
+		# Suavemente rotar hacia el watcher (solo un poco)
+		rotation = rotation.slerp(target_basis, delta * rotation_speed)
+	else:
+		# Volver suavemente a la rotación original
+		rotation = rotation.slerp(default_rotation, delta * rotation_speed)
+"
+
+[sub_resource type="GDScript" id="GDScript_a202f"]
+script/source = "extends Camera3D
+
+@onready var head = $\"..\"
+@onready var camera = $\".\"
+var original_rotation = null
+var look_at_enemy_watcher = false
+var enemy_ref = null  
+var look_strength = 0.25
+
+func focus_on_watcher(watcher_node):
+	look_at_enemy_watcher = true
+	enemy_ref = watcher_node
+	original_rotation = rotation
+
+func _process(delta):
+	if camera.look_at_enemy_watcher and is_instance_valid(camera.enemy_ref):
+		var to_enemy = (camera.enemy_ref.global_transform.origin - head.global_transform.origin).normalized()
+		var current_basis = head.global_transform.basis
+		var target_basis = Transform3D().looking_at(to_enemy, Vector3.UP).basis
+		head.global_transform.basis = current_basis.slerp(target_basis, look_strength)
+
+func unfocus_on_watcher():
+	look_at_enemy_watcher = false
+	enemy_ref = null
+"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oqwcg"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.4
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_noarx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_t3l2h"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00110292, 4.76837e-07, 0.0153861)
+script = ExtResource("1_ns6u7")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.13973, 0)
+script = ExtResource("2_a6664")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146754, 1.20754, -0.0683413)
+mesh = SubResource("CapsuleMesh_noarx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14644, 1.18008, -0.0649388)
+shape = SubResource("CapsuleShape3D_a0tk4")
+
+[node name="Node3D" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98597, 0)
+script = SubResource("GDScript_t3l2h")
+rotation_speed = null
+
+[node name="Camera3D" type="Camera3D" parent="Player/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0856829, -0.69278, -0.0378123)
+fov = 80.0
+script = SubResource("GDScript_a202f")
+
+[node name="FlashLight" type="MeshInstance3D" parent="Player/Node3D/Camera3D"]
+transform = Transform3D(2.5833e-05, -0.00774915, 0.99997, 0.999994, 0.00333364, 3.08276e-11, -0.00333354, 0.999964, 0.0077492, 0.316614, -0.149046, -0.120725)
+mesh = SubResource("CylinderMesh_oqwcg")
+skeleton = NodePath("../../..")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player/Node3D/Camera3D/FlashLight"]
+transform = Transform3D(0.626501, -0.768481, -0.130135, 0.0587634, -0.119917, 0.991044, -0.777203, -0.628536, -0.0299696, 0.00194693, -0.197021, 0.0172787)
+light_color = Color(1, 1, 0.592157, 1)
+spot_range = 6.0
+spot_angle = 28.66
+script = ExtResource("3_10v3s")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(19.011, 0, 0, 0, 1, 0, 0, 0, 15.4823, 0, -8.19106, 0)
+physics_material_override = SubResource("PhysicsMaterial_a202f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(2.05923, 0, 0, 0, 1, 0, 0, 0, 2.03117, 0, 0, 0)
+shape = SubResource("BoxShape3D_a202f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000300635, 0.00804424, 7.39943e-06)
+mesh = SubResource("PlaneMesh_noarx")
+
+[node name="La lucecita" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.511083, 0.859531, 0, -0.859531, -0.511083, 0, 0, 0)
+
+[node name="Watcher" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 5.94797, 3.80552)
+script = ExtResource("3_5t4e2")
+
+[node name="Watcher" parent="Watcher" instance=ExtResource("5_ifh66")]
+transform = Transform3D(-42.9742, 0, -3.75693e-06, 0, 42.9742, 0, 3.75693e-06, 0, -42.9742, 0, 0, 0)
+
+[node name="Enemy1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9648, 5.19088, 7.61105)
+script = ExtResource("4_xvgsr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy1"]
+mesh = SubResource("BoxMesh_t3l2h")
+
+[node name="Enemy2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9296, 10.3818, 15.2221)
+script = ExtResource("5_oqwcg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy2"]
+mesh = SubResource("BoxMesh_t3l2h")
+skeleton = NodePath("../../Enemy2")
