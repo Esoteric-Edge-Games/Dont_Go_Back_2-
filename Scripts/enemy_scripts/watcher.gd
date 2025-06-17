@@ -48,7 +48,7 @@ func _physics_process(delta):
 
 		if enemyTimer <= 0.0:
 			#Aca debe de agregarse la escena de muerte del jugador o algo similar
-			print("Watcher kills the player")
+			pass
 
 		if timeNotLookedAt >= NOT_LOOK_THRESHOLD:
 			enemy_dissapear()
@@ -65,7 +65,7 @@ func watcher_is_in_front_of_the_player():
 	timeNotLookedAt = 0.0
 
 func enemy_dissapear():
-	print("Enemy disappears because player did not look")
+	
 	watcherFlying.stop()
 	restore_vars()
 
@@ -73,12 +73,12 @@ func player_is_looking_at_watcher(delta):
 	# If the player is looking the Watcher and the "enemyTimer" is equals 0.0, the player will die
 	enemyTimer -= delta
 	timeNotLookedAt = 0.0
-	print("Player looking at enemy. Time until kill: ", enemyTimer)
+	
 
 func player_is_not_looking_at_watcher(delta):
 	# if the player is dont looking the watcher, the watcher will disappear
 	timeNotLookedAt += delta
-	print("Player not looking at enemy for: ", timeNotLookedAt, " seconds")
+	
 
 func restore_vars():
 	# this restore the variables for a future spawn of the watcher
@@ -97,4 +97,4 @@ func spawn_enemy():
 	if not watcherAppears:
 		global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
 		watcherAppears = true
-	print("Watcher Spawneado")
+	
