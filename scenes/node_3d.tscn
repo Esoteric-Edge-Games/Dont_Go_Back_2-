@@ -8,16 +8,70 @@
 [ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
 [ext_resource type="PackedScene" uid="uid://doyin5n2o4hub" path="res://scenes/runner_moving.tscn" id="8_cptob"]
 
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a0tk4"]
+margin = 0.187
+radius = 0.2
+height = 0.48
+
+[sub_resource type="GDScript" id="GDScript_t3l2h"]
+script/source = "extends Node3D
+
+@export var rotation_speed := 1.0
+var look_at_enemy_watcher := false
+var enemy_ref: Node3D = null
+var default_rotation: Basis
+
+
+
+func _process(delta):
+	if look_at_enemy_watcher and enemy_ref:
+		var to_enemy = (enemy_ref.global_transform.origin - global_transform.origin).normalized()
+		var target_basis = Transform3D().looking_at(to_enemy, Vector3.UP).basis
+		# Suavemente rotar hacia el watcher (solo un poco)
+		rotation = rotation.slerp(target_basis.get_euler(), delta * rotation_speed)
+
+
+	else:
+		# Volver suavemente a la rotación original
+		rotation = rotation.slerp(default_rotation.get_euler(), delta * rotation_speed)
+"
 
 [sub_resource type="GDScript" id="GDScript_a202f"]
 script/source = "extends Camera3D
+
+@onready var head = $\"..\" # node3d
+@onready var camera = $\".\" #camera3d
+var original_rotation = null
+var look_at_enemy_watcher = false
+var enemy_ref = null  
+var look_strength = 0.25
+
+func focus_on_watcher(watcher_node):
+	look_at_enemy_watcher = true
+	enemy_ref = watcher_node
+	original_rotation = rotation
+
+func _process(delta):
+	if camera.look_at_enemy_watcher and is_instance_valid(camera.enemy_ref):
+		var to_enemy = (camera.enemy_ref.global_transform.origin - head.global_transform.origin).normalized()
+		var current_basis = head.global_transform.basis
+		var target_basis = Transform3D().looking_at(to_enemy, Vector3.UP).basis
+		head.global_transform.basis = current_basis.slerp(target_basis, look_strength)
+
+
+func unfocus_on_watcher():
+	look_at_enemy_watcher = false
+	enemy_ref = null
 "
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_oqwcg"]
 top_radius = 0.05
 bottom_radius = 0.05
 height = 0.4
+
 
 [sub_resource type="GDScript" id="GDScript_cptob"]
 script/source = "extends SpotLight3D
@@ -37,6 +91,7 @@ height = 0.48
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_noarx"]
 
+
 [sub_resource type="GDScript" id="GDScript_10v3s"]
 script/source = "extends DirectionalLight3D  
 "
@@ -44,6 +99,7 @@ script/source = "extends DirectionalLight3D
 [sub_resource type="CylinderMesh" id="CylinderMesh_10v3s"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xvgsr"]
+
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3p76"]
 radius = 0.719998
@@ -61,29 +117,36 @@ script = ExtResource("2_5t4e2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146754, 1.20754, -0.0683413)
 mesh = SubResource("CapsuleMesh_noarx")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0856829, 1.29319, -0.0378123)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14644, 1.18008, -0.0649388)
+shape = SubResource("CapsuleShape3D_a0tk4")
+
+[node name="Node3D" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98597, 0)
+script = SubResource("GDScript_t3l2h")
+
+[node name="Camera3D" type="Camera3D" parent="Player/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0856829, -0.69278, -0.0378123)
 fov = 80.0
 script = SubResource("GDScript_a202f")
 
-[node name="FlashLight" type="MeshInstance3D" parent="Player/Camera3D"]
+[node name="FlashLight" type="MeshInstance3D" parent="Player/Node3D/Camera3D"]
 transform = Transform3D(2.5833e-05, -0.00774915, 0.99997, 0.999994, 0.00333364, 3.08276e-11, -0.00333354, 0.999964, 0.0077492, 0.316614, -0.149046, -0.120725)
 mesh = SubResource("CylinderMesh_oqwcg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
+
 
 [node name="Linterna" type="SpotLight3D" parent="Player/Camera3D/FlashLight"]
+
 transform = Transform3D(0.626501, -0.768481, -0.130135, 0.0587634, -0.119917, 0.991044, -0.777203, -0.628536, -0.0299696, 0.00194693, -0.197021, 0.0172787)
 light_color = Color(1, 1, 0.592157, 1)
 spot_range = 6.0
 spot_angle = 28.66
 script = SubResource("GDScript_cptob")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14644, 1.18008, -0.0649388)
-shape = SubResource("CapsuleShape3D_a0tk4")
-
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(47.7256, 0, 0, 0, 2.51042, 0, 0, 0, 38.8671, 0, 0, 0)
+
 physics_material_override = SubResource("PhysicsMaterial_a202f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
@@ -109,25 +172,24 @@ script = ExtResource("5_b2yaj")
 transform = Transform3D(0.203964, 0, 0, 0, 0.954799, 0.152045, 0, -1.56938, 0.0925034, 0.145345, -0.686628, 1.20043)
 mesh = SubResource("CylinderMesh_10v3s")
 
-[node name="Enemy0" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 2.59544, 3.80552)
+[node name="Watcher" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 5.94797, 3.80552)
 script = ExtResource("3_5t4e2")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5037, 0, 0)
-mesh = SubResource("BoxMesh_xvgsr")
+[node name="Watcher" parent="Watcher" instance=ExtResource("5_ifh66")]
+transform = Transform3D(-42.9742, 0, -3.75693e-06, 0, 42.9742, 0, 3.75693e-06, 0, -42.9742, 0, 0, 0)
 
 [node name="Enemy1" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9648, 5.19088, 7.61105)
 script = ExtResource("4_xvgsr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5037, 0, 0)
-mesh = SubResource("BoxMesh_xvgsr")
+mesh = SubResource("BoxMesh_t3l2h")
 
 [node name="Runner" type="StaticBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19.8602, 0.535696, 0.498143)
 script = ExtResource("5_oqwcg")
+
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Runner"]
 transform = Transform3D(-4.77343e-08, -2.07623, 1.16138e-16, 1.09145, -9.0706e-08, -0.0326899, 0.0358065, -2.97575e-09, 0.996445, -1.73449, 0.412708, 0.0828063)

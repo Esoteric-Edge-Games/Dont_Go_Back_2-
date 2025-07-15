@@ -80,6 +80,8 @@ func _process(_delta):
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
+		
+
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
 
