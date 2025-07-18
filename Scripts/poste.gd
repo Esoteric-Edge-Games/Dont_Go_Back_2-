@@ -19,7 +19,6 @@ func _process(delta: float) -> void:
 			print("El poste de luz se recarga y está listo para encenderse.")
 		else:
 			self.visible = false  # Apaga la luz visualmente
-			print("Tiempo hasta que la lámpara funcione de nuevo: ", cooldown)
 
 	else:
 		if timer > 0:
@@ -27,7 +26,6 @@ func _process(delta: float) -> void:
 		else:
 			self.visible = false  
 			is_in_cooldown = true  
-			print("El poste de luz se ha apagado.")
 
 func check_player_in_range(player_position: Vector3) -> bool:
 	if player_position.distance_to(global_position) < 4.0:  # Distancia de 5 unidades

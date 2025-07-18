@@ -19,5 +19,5 @@ var fear = 0.0
 
 func register_enemy(enemy):
 	enemies.append(enemy)
-func _spawn_enemy():
-	enemies[enemyToSpawn].spawn_enemy()
+#func _spawn_enemy():
+#	enemies[enemyToSpawn].spawn_enemy()
