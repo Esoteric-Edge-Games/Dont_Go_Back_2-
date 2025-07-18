@@ -107,6 +107,7 @@ script = ExtResource("2_5t4e2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146754, 1.20754, -0.0683413)
+visible = false
 mesh = SubResource("CapsuleMesh_noarx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
@@ -128,7 +129,7 @@ mesh = SubResource("CylinderMesh_oqwcg")
 skeleton = NodePath("../../..")
 
 [node name="Linterna" type="SpotLight3D" parent="Player/Node3D/Camera3D/FlashLight"]
-transform = Transform3D(0.0613701, -0.117841, 0.991135, -0.781834, -0.622959, -0.0256563, 0.620459, -0.773328, -0.130363, -4.48147, 0.163974, -0.398976)
+transform = Transform3D(-0.998788, -0.0108646, -0.0480135, -0.0478448, -0.0152863, 0.998738, -0.0115849, 0.999824, 0.014748, 0.0224533, -0.193217, -0.216217)
 light_color = Color(1, 1, 0.592157, 1)
 spot_range = 6.0
 spot_angle = 28.66
