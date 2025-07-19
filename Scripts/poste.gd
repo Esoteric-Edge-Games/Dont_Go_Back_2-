@@ -16,7 +16,6 @@ func _process(delta: float) -> void:
 			is_in_cooldown = false
 			cooldown = 5  # Reinicia el temporizador
 			self.visible = true
-			print("El poste de luz se recarga y está listo para encenderse.")
 		else:
 			self.visible = false  # Apaga la luz visualmente
 
@@ -31,7 +30,6 @@ func check_player_in_range(player_position: Vector3) -> bool:
 	if player_position.distance_to(global_position) < 4.0:  # Distancia de 5 unidades
 		if timer > 0:
 			timer -= get_process_delta_time()  
-			print("Player está debajo del poste. Timer: ", timer)
 			return true  # Retorna verdadero si está en rango
 	else:
 		# Si el jugador salió del rango, recarga el temporizador
@@ -39,6 +37,5 @@ func check_player_in_range(player_position: Vector3) -> bool:
 			timer += get_process_delta_time()  # Aumenta el timer cuando el jugador sale
 			if timer > 5:
 				timer = 5  # Limitar a 5 segundos
-		print("Player salió del rango del poste. Timer: ", timer)
 
 	return false

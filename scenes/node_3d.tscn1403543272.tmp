@@ -177,7 +177,7 @@ script = ExtResource("4_xvgsr")
 mesh = SubResource("BoxMesh_t312h")
 
 [node name="Runner" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.6552, 0.618448, 0.733552)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19.8602, 0.535696, 0.498143)
 script = ExtResource("5_oqwcg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Runner"]
