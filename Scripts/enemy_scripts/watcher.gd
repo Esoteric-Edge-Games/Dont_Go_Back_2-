@@ -91,10 +91,10 @@ func restore_vars():
 	player_not_looking_watcher = false
 
 func _ready():
-	Global.register_enemy(self)
-
+	#Global.register_enemy(self)
+	pass
 func spawn_enemy():
-	if not watcherAppears:
-		global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
-		watcherAppears = true
-	
+	#if not watcherAppears:
+	#	global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
+	#	watcherAppears = true
+	pass

@@ -6,10 +6,11 @@ var timer = 0
 
 func _ready():
 	Global.enemyToSpawn = -1
+	
 func _process(delta):
 	timer += 0.1
 	if (timer >= 3):
 		Global.enemyToSpawn = int(RNG.randf_range(0,TOTAL_ENEMIES))
 		print(Lang.get_text("test","firstText"))
 		timer = 0
-		Global._spawn_enemy()
+#		Global._spawn_enemy()
