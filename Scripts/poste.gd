@@ -6,7 +6,6 @@ var cooldown: float = 5.0  # Cooldown tras apagarse
 var is_in_cooldown: bool = false  # Estado del cooldown
 
 func _ready():
-	print("El poste de luz está encendido.")  # Mensaje inicial
 	self.visible = true
 
 func _process(delta: float) -> void:
