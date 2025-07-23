@@ -1,12 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=23 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
-[ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_a6664"]
+[ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
 [ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
-[ext_resource type="Script" uid="uid://txsqnuh3i66c" path="res://Scripts/spot_light_3d.gd" id="3_10v3s"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
+[ext_resource type="Script" uid="uid://u8k3dsun3gfh" path="res://Scripts/poste.gd" id="5_b2yaj"]
 [ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://scenes/watcher.tscn" id="5_ifh66"]
-[ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
+[ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
+[ext_resource type="Script" uid="uid://c8qsvyclvgjgi" path="res://scenes/collision_shape_3d.gd" id="8_b2yaj"]
+[ext_resource type="PackedScene" uid="uid://doyin5n2o4hub" path="res://scenes/runner_moving.tscn" id="8_cptob"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
 
@@ -71,24 +73,42 @@ top_radius = 0.05
 bottom_radius = 0.05
 height = 0.4
 
+[sub_resource type="GDScript" id="GDScript_cptob"]
+script/source = "extends SpotLight3D
+#Linterna code
+func toggle_flashlight():
+	visible = !visible  
+"
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_noarx"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_t3l2h"]
+[sub_resource type="GDScript" id="GDScript_10v3s"]
+script/source = "extends DirectionalLight3D  
+"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10v3s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_t312h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3p76"]
+radius = 0.839308
+height = 1.95086
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00110292, 4.76837e-07, 0.0153861)
 script = ExtResource("1_ns6u7")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.13973, 0)
-script = ExtResource("2_a6664")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.13973, 9.03992)
+script = ExtResource("2_5t4e2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146754, 1.20754, -0.0683413)
+visible = false
 mesh = SubResource("CapsuleMesh_noarx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
@@ -109,15 +129,15 @@ transform = Transform3D(2.5833e-05, -0.00774915, 0.99997, 0.999994, 0.00333364, 
 mesh = SubResource("CylinderMesh_oqwcg")
 skeleton = NodePath("../../..")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Player/Node3D/Camera3D/FlashLight"]
-transform = Transform3D(0.626501, -0.768481, -0.130135, 0.0587634, -0.119917, 0.991044, -0.777203, -0.628536, -0.0299696, 0.00194693, -0.197021, 0.0172787)
+[node name="Linterna" type="SpotLight3D" parent="Player/Node3D/Camera3D/FlashLight"]
+transform = Transform3D(-0.998788, -0.0108646, -0.0480135, -0.0478448, -0.0152863, 0.998738, -0.0115849, 0.999824, 0.014748, 0.0224533, -0.193217, -0.216217)
 light_color = Color(1, 1, 0.592157, 1)
 spot_range = 6.0
 spot_angle = 28.66
-script = ExtResource("3_10v3s")
+script = SubResource("GDScript_cptob")
 
 [node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(19.011, 0, 0, 0, 1, 0, 0, 0, 15.4823, 0, -8.19106, 0)
+transform = Transform3D(47.7256, 0, 0, 0, 2.51042, 0, 0, 0, 38.8671, 0, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_a202f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
@@ -125,11 +145,23 @@ transform = Transform3D(2.05923, 0, 0, 0, 1, 0, 0, 0, 2.03117, 0, 0, 0)
 shape = SubResource("BoxShape3D_a202f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000300635, 0.00804424, 7.39943e-06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000813934, 0.013401, -0.00336277)
 mesh = SubResource("PlaneMesh_noarx")
 
 [node name="La lucecita" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.511083, 0.859531, 0, -0.859531, -0.511083, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -0.511083, 0.859531, 0, -0.859531, -0.511083, 0, 0.464642, -0.0688725)
+script = SubResource("GDScript_10v3s")
+
+[node name="Poste" type="SpotLight3D" parent="La lucecita"]
+transform = Transform3D(1, 0, 0, 0, 0.841426, -0.540372, 0, 0.540372, 0.841426, 0, -1.22451, 2.05936)
+spot_range = 3.941
+spot_attenuation = -3.53
+spot_angle = 36.63
+script = ExtResource("5_b2yaj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="La lucecita"]
+transform = Transform3D(0.203964, 0, 0, 0, 0.954799, 0.152045, 0, -1.56938, 0.0925034, 0.145345, -0.686628, 1.20043)
+mesh = SubResource("CylinderMesh_10v3s")
 
 [node name="Watcher" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 5.94797, 3.80552)
@@ -143,12 +175,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9648, 5.19088, 7.61105)
 script = ExtResource("4_xvgsr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy1"]
-mesh = SubResource("BoxMesh_t3l2h")
+mesh = SubResource("BoxMesh_t312h")
 
-[node name="Enemy2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9296, 10.3818, 15.2221)
+[node name="Runner" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.6552, 0.618448, 0.733552)
 script = ExtResource("5_oqwcg")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy2"]
-mesh = SubResource("BoxMesh_t3l2h")
-skeleton = NodePath("../../Enemy2")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Runner"]
+transform = Transform3D(1.09204, 0, 0, 0, -9.07549e-08, -0.996981, 0, 2.07623, -4.35794e-08, -5.96046e-08, 0.232162, 1.72024)
+shape = SubResource("CapsuleShape3D_m3p76")
+debug_color = Color(0.996633, 0, 0.182859, 0.42)
+script = ExtResource("8_b2yaj")
+
+[node name="RunnerMoving" parent="Runner" instance=ExtResource("8_cptob")]
+transform = Transform3D(-7.13428, 0, -6.23699e-07, 0, 7.13428, 0, 6.23699e-07, 0, -7.13428, 0, 0, 0)

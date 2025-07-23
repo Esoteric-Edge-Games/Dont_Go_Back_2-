@@ -13,6 +13,7 @@ var canSpawnAntiLookEnemy = true
 var enemyToSpawn = 0
 var enemies : Array = []
 var watcherIsSpawned = false
+var runnerOn = false
 
 var fear = 0.0
 
