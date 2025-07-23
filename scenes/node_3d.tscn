@@ -161,6 +161,7 @@ script = ExtResource("4_b2yaj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138386, 4.72839, 0.0153861)
 stream = SubResource("AudioStreamMicrophone_cptob")
 autoplay = true
+bus = &"Microphone"
 script = SubResource("GDScript_cptob")
 
 [node name="ProgressBar" type="ProgressBar" parent="Player/Node3D/MicInput/AudioStreamMicrophone"]

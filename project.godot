@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="uid://07is3l65wmdp"
+buses/default_bus_layout="uid://drluajmnv8r8o"
 driver/enable_input=true
 
 [autoload]
