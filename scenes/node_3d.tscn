@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=20 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_a6664"]
 [ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
 [ext_resource type="Script" uid="uid://txsqnuh3i66c" path="res://Scripts/spot_light_3d.gd" id="3_10v3s"]
+[ext_resource type="Script" uid="uid://dtcbit8svedlp" path="res://Scripts/microphoneScript.gd" id="4_b2yaj"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://scenes/watcher.tscn" id="5_ifh66"]
 [ext_resource type="Script" uid="uid://eyny7ktdunqt" path="res://Scripts/enemy_scripts/enemy_2.gd" id="5_oqwcg"]
@@ -71,6 +72,39 @@ top_radius = 0.05
 bottom_radius = 0.05
 height = 0.4
 
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_cptob"]
+
+[sub_resource type="GDScript" id="GDScript_cptob"]
+script/source = "extends AudioStreamPlayer3D
+
+@onready var gain_bar = get_node(\"/root/Node3D/Player/AudioStreamMicrophone/ProgressBar\")
+var capture = AudioEffectCapture #AudioServer.get_bus_effect(bus_index, 0) 
+
+func _ready():
+	var bus_index := AudioServer.get_bus_index(\"MicrophoneBus\")
+	var effect = AudioEffectCapture.new()
+	AudioServer.set_bus_effect_enabled(bus_index, 0 , true)
+	
+	capture = AudioServer.get_bus_effect(bus_index, 0) as AudioEffectCapture
+	
+	pass
+
+
+func _process(delta):
+	if capture and capture.can_get_buffer(1024):
+		var buffer = capture.get_buffer(1024)
+		if buffer.size() > 0:
+			var sum := 0.0
+			for sample in buffer:
+				sum += sample.length_squared()  # porque es Vector2
+
+			var rms = sqrt(sum / buffer.size())
+			var db := 20.0 * log(max(rms, 1e-8)) / log(10.0)
+			db = clamp(db, -60.0, 0.0)
+			gain_bar.value = db
+			print(\"db: \", db)
+"
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
@@ -115,6 +149,28 @@ light_color = Color(1, 1, 0.592157, 1)
 spot_range = 6.0
 spot_angle = 28.66
 script = ExtResource("3_10v3s")
+
+[node name="MicInput" type="Control" parent="Player/Node3D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_b2yaj")
+
+[node name="AudioStreamMicrophone" type="AudioStreamPlayer3D" parent="Player/Node3D/MicInput"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138386, 4.72839, 0.0153861)
+stream = SubResource("AudioStreamMicrophone_cptob")
+autoplay = true
+script = SubResource("GDScript_cptob")
+
+[node name="ProgressBar" type="ProgressBar" parent="Player/Node3D/MicInput/AudioStreamMicrophone"]
+offset_left = 71.0
+offset_top = 561.0
+offset_right = 381.0
+offset_bottom = 600.0
+min_value = -60.0
+max_value = 0.0
+show_percentage = false
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(19.011, 0, 0, 0, 1, 0, 0, 0, 15.4823, 0, -8.19106, 0)

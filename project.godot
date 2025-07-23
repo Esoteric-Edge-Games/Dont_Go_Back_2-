@@ -15,6 +15,11 @@ run/main_scene="res://scenes/node_3d.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://07is3l65wmdp"
+driver/enable_input=true
+
 [autoload]
 
 Global="*res://scripts/autoload.gd"
