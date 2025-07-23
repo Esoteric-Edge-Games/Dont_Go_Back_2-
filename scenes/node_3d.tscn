@@ -95,8 +95,8 @@ script/source = "extends DirectionalLight3D
 [sub_resource type="BoxMesh" id="BoxMesh_t312h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3p76"]
-radius = 0.719998
-height = 1.97748
+radius = 0.839308
+height = 1.95086
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00110292, 4.76837e-07, 0.0153861)
@@ -145,7 +145,7 @@ transform = Transform3D(2.05923, 0, 0, 0, 1, 0, 0, 0, 2.03117, 0, 0, 0)
 shape = SubResource("BoxShape3D_a202f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000300635, 0.00804424, 7.39943e-06)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000813934, 0.013401, -0.00336277)
 mesh = SubResource("PlaneMesh_noarx")
 
 [node name="La lucecita" type="DirectionalLight3D" parent="."]
@@ -182,8 +182,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.65
 script = ExtResource("5_oqwcg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Runner"]
-transform = Transform3D(-4.77343e-08, -2.07623, 1.16138e-16, 1.09145, -9.0706e-08, -0.0326899, 0.0358065, -2.97575e-09, 0.996445, -1.73449, 0.412708, 0.0828063)
+transform = Transform3D(1.09204, 0, 0, 0, -9.07549e-08, -0.996981, 0, 2.07623, -4.35794e-08, -5.96046e-08, 0.232162, 1.72024)
 shape = SubResource("CapsuleShape3D_m3p76")
+debug_color = Color(0.996633, 0, 0.182859, 0.42)
 script = ExtResource("8_b2yaj")
 
 [node name="RunnerMoving" parent="Runner" instance=ExtResource("8_cptob")]

@@ -48,6 +48,7 @@ func _physics_process(delta):
 
 		if enemyTimer <= 0.0:
 			#Aca debe de agregarse la escena de muerte del jugador o algo similar
+			print("Watcher mató a Player")
 			pass
 
 		if timeNotLookedAt >= NOT_LOOK_THRESHOLD:
@@ -92,9 +93,9 @@ func restore_vars():
 
 func _ready():
 	Global.register_enemy(self)
-	pass
+	
 func spawn_enemy():
-	#if not watcherAppears:
-	#	global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
-	#	watcherAppears = true
-	pass
+	if not watcherAppears:
+		global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
+		watcherAppears = true
+	
