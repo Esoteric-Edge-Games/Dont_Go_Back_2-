@@ -96,6 +96,6 @@ func _ready():
 	
 func spawn_enemy():
 	if not watcherAppears:
-		global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
+		#global_transform.origin = Vector3(player.global_transform.origin.x,90, player.global_transform.origin.z)
 		watcherAppears = true
 	
