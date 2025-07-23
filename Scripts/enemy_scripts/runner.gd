@@ -1,6 +1,6 @@
 extends StaticBody3D
 
-var speed: float = 2.5  # Velocidad para seguir al jugador
+var speed: float = 2.4  # Velocidad para seguir al jugador
 var runnerOn: bool = false  
 var despawn_distance: float = 40.0  # Distancia del despawn
 var spawn_distance: float = 30.0 #Distancia para el spawn
