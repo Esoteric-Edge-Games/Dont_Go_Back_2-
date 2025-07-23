@@ -8,12 +8,14 @@ var spawn_distance: float = 30.0 #Distancia para el spawn
 @onready var player = get_node("/root/Node3D/Player")
 @onready var poste = get_node("/root/Node3D/La lucecita/Poste")  # Nodo del poste de luz
 @onready var RunnerMove = get_node("/root/Node3D/Runner/RunnerMoving/AnimationPlayer")
+@onready var RunnerColl = get_node("/root/Node3D/Runner/CollisionShape3D")
 
 func _ready():
 	Global.register_enemy(self)
 
 func _process(delta: float) -> void:
 	chase_player(delta)  
+	check_collision_with_player()
 
 func chase_player(delta: float) -> void:
 	var is_under_light = poste.check_player_in_range(player.position)  
@@ -36,7 +38,15 @@ func chase_player(delta: float) -> void:
 			global_position += direction_to_player.normalized() * speed * delta  #Velocidad "normal"
 	else:
 		runnerOn = false
+	
+
 		
+func check_collision_with_player():
+	var playerPos = player.global_transform.origin
+	var distance = RunnerColl.global_transform.origin.distance_to(playerPos)
+	if distance <= 2.0:  #Distancia aproximada de muerte. Para que no sea exactamente la posicion de player
+		print("Player Murió")
+
 func spawn_enemy():
 	if not runnerOn:
 		runnerOn = true

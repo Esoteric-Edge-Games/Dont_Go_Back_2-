@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=23 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://u8k3dsun3gfh" path="res://Scripts/poste.gd" id="5_b2yaj"]
 [ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://scenes/watcher.tscn" id="5_ifh66"]
 [ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
+[ext_resource type="Script" uid="uid://c8qsvyclvgjgi" path="res://scenes/collision_shape_3d.gd" id="8_b2yaj"]
 [ext_resource type="PackedScene" uid="uid://doyin5n2o4hub" path="res://scenes/runner_moving.tscn" id="8_cptob"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
@@ -183,6 +184,7 @@ script = ExtResource("5_oqwcg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Runner"]
 transform = Transform3D(-4.77343e-08, -2.07623, 1.16138e-16, 1.09145, -9.0706e-08, -0.0326899, 0.0358065, -2.97575e-09, 0.996445, -1.73449, 0.412708, 0.0828063)
 shape = SubResource("CapsuleShape3D_m3p76")
+script = ExtResource("8_b2yaj")
 
 [node name="RunnerMoving" parent="Runner" instance=ExtResource("8_cptob")]
 transform = Transform3D(-7.13428, 0, -6.23699e-07, 0, 7.13428, 0, 6.23699e-07, 0, -7.13428, 0, 0, 0)
