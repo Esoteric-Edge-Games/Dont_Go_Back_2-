@@ -1,9 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=25 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
+[ext_resource type="Script" uid="uid://cwaqa2lbawa7b" path="res://Scripts/linterna.gd" id="3_1enmr"]
 [ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
-[ext_resource type="Script" uid="uid://txsqnuh3i66c" path="res://Scripts/spot_light_3d.gd" id="3_10v3s"]
 [ext_resource type="Script" uid="uid://dtcbit8svedlp" path="res://Scripts/microphoneScript.gd" id="4_b2yaj"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="Script" uid="uid://u8k3dsun3gfh" path="res://Scripts/poste.gd" id="5_b2yaj"]
@@ -75,13 +75,6 @@ top_radius = 0.05
 bottom_radius = 0.05
 height = 0.4
 
-[sub_resource type="GDScript" id="GDScript_cptob"]
-script/source = "extends SpotLight3D
-#Linterna code
-func toggle_flashlight():
-	visible = !visible  
-"
-
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_cptob"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
@@ -138,7 +131,7 @@ transform = Transform3D(-0.998788, -0.0108646, -0.0480135, -0.0478448, -0.015286
 light_color = Color(1, 1, 0.592157, 1)
 spot_range = 6.0
 spot_angle = 28.66
-script = SubResource("GDScript_cptob")
+script = ExtResource("3_1enmr")
 
 [node name="MicInput" type="Control" parent="Player/Node3D"]
 layout_mode = 3
