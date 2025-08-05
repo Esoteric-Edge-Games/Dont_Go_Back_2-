@@ -1,14 +1,18 @@
-[gd_scene load_steps=23 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=30 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
 [ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
+[ext_resource type="AudioStream" uid="uid://dfk8tbqqyv102" path="res://sounds/Ambiente/Luz.ogg" id="4_umdqk"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="Script" uid="uid://u8k3dsun3gfh" path="res://Scripts/poste.gd" id="5_b2yaj"]
 [ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://scenes/watcher.tscn" id="5_ifh66"]
 [ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
 [ext_resource type="Script" uid="uid://c8qsvyclvgjgi" path="res://scenes/collision_shape_3d.gd" id="8_b2yaj"]
 [ext_resource type="PackedScene" uid="uid://doyin5n2o4hub" path="res://scenes/runner_moving.tscn" id="8_cptob"]
+[ext_resource type="Script" uid="uid://qvja38f53qi5" path="res://Scripts/sounds.gd" id="10_1enmr"]
+[ext_resource type="AudioStream" uid="uid://br3p0supjy4jh" path="res://sounds/Ambiente/Buho.ogg" id="11_aj7ea"]
+[ext_resource type="Texture2D" uid="uid://cr6gwtm7o7vso" path="res://satara_night_no_lamps_4k.hdr" id="13_6l3rs"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
 
@@ -50,6 +54,7 @@ var look_at_enemy_watcher = false
 var enemy_ref = null  
 var look_strength = 0.25
 
+
 func focus_on_watcher(watcher_node):
 	look_at_enemy_watcher = true
 	enemy_ref = watcher_node
@@ -64,6 +69,7 @@ func _process(delta):
 
 
 func unfocus_on_watcher():
+	
 	look_at_enemy_watcher = false
 	enemy_ref = null
 "
@@ -97,6 +103,30 @@ script/source = "extends DirectionalLight3D
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3p76"]
 radius = 0.839308
 height = 1.95086
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u1at"]
+sky_top_color = Color(0.834189, 0.828847, 0.830176, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+sky_curve = 0.432383
+sky_energy_multiplier = 0.07
+sky_cover = ExtResource("13_6l3rs")
+
+[sub_resource type="Sky" id="Sky_1enmr"]
+sky_material = SubResource("ProceduralSkyMaterial_2u1at")
+
+[sub_resource type="Environment" id="Environment_aj7ea"]
+background_mode = 2
+sky = SubResource("Sky_1enmr")
+fog_mode = 1
+fog_light_color = Color(0.138844, 0.132602, 0.12111, 1)
+fog_density = 100.0
+fog_depth_curve = 0.554785
+fog_depth_begin = 1.0
+fog_depth_end = 170.0
+volumetric_fog_density = 5.0
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+volumetric_fog_anisotropy = 0.9
+volumetric_fog_length = 50.0
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00110292, 4.76837e-07, 0.0153861)
@@ -159,6 +189,13 @@ spot_attenuation = -3.53
 spot_angle = 36.63
 script = ExtResource("5_b2yaj")
 
+[node name="LightSound" type="AudioStreamPlayer3D" parent="La lucecita/Poste"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0218679, 0.634801)
+stream = ExtResource("4_umdqk")
+volume_db = -15.0
+autoplay = true
+max_distance = 10.0
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="La lucecita"]
 transform = Transform3D(0.203964, 0, 0, 0, 0.954799, 0.152045, 0, -1.56938, 0.0925034, 0.145345, -0.686628, 1.20043)
 mesh = SubResource("CylinderMesh_10v3s")
@@ -189,3 +226,24 @@ script = ExtResource("8_b2yaj")
 
 [node name="RunnerMoving" parent="Runner" instance=ExtResource("8_cptob")]
 transform = Transform3D(-7.13428, 0, -6.23699e-07, 0, 7.13428, 0, 6.23699e-07, 0, -7.13428, 0, 0, 0)
+
+[node name="sounds" type="Node3D" parent="."]
+script = ExtResource("10_1enmr")
+
+[node name="Owl" type="AudioStreamPlayer3D" parent="sounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.47025, 1.15377, -17.5758)
+stream = ExtResource("11_aj7ea")
+volume_db = -20.0
+pitch_scale = 0.7
+max_distance = 40.0
+
+[node name="OwlTimer" type="Timer" parent="sounds/Owl"]
+wait_time = 5.0
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="sounds"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aj7ea")
+
+[connection signal="timeout" from="sounds/Owl/OwlTimer" to="sounds" method="_on_owl_timer_timeout"]
