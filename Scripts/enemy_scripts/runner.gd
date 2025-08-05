@@ -49,7 +49,7 @@ func spawn_enemy():
 	if not runnerOn:
 		runnerOn = true
 		global_position = player.position - Vector3(randf_range(-10, 10), 0, randf_range(5, 20))
-		visible = true  # Haz visible al Runner cuando se spawnea
+		visible = true # Haz visible al Runner cuando se spawnea
 		RunnerMove.play("Moving")  
 		print("Runner spawneo")
 
