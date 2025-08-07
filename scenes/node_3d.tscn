@@ -218,7 +218,7 @@ stream = ExtResource("5_dvicb")
 volume_db = -70.0
 autoplay = true
 
-[node name="ColorRect" type="ColorRect" parent="Player/Node3D"]
+[node name="Shader" type="ColorRect" parent="Player/Node3D"]
 material = SubResource("ShaderMaterial_0814m")
 offset_right = 1156.0
 offset_bottom = 650.0
@@ -332,7 +332,7 @@ volume_db = 10.0
 max_distance = 40.0
 
 [node name="BranchBreakingTimer" type="Timer" parent="ambient sounds/Branch Breaking"]
-wait_time = 17.0
+wait_time = 120.0
 autostart = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
