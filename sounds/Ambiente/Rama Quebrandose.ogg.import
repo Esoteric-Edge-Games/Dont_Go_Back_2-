@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bp4os0w6878s7"
+path="res://.godot/imported/Rama Quebrandose.ogg-c75b395039d13c80f6fbed3b4df4cc3b.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/Ambiente/Rama Quebrandose.ogg"
+dest_files=["res://.godot/imported/Rama Quebrandose.ogg-c75b395039d13c80f6fbed3b4df4cc3b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
