@@ -1,23 +1,34 @@
-[gd_scene load_steps=25 format=3 uid="uid://dqgm20jm1doap"]
+[gd_scene load_steps=41 format=3 uid="uid://dqgm20jm1doap"]
 
 [ext_resource type="Script" uid="uid://dr4kirflru27g" path="res://Scripts/main_game.gd" id="1_ns6u7"]
 [ext_resource type="Script" uid="uid://debe6m436sgay" path="res://Scripts/player.gd" id="2_5t4e2"]
 [ext_resource type="Script" uid="uid://cwaqa2lbawa7b" path="res://Scripts/linterna.gd" id="3_1enmr"]
 [ext_resource type="Script" uid="uid://dyf1lusnab5xq" path="res://Scripts/enemy_scripts/watcher.gd" id="3_5t4e2"]
+[ext_resource type="Texture2D" uid="uid://db8g02kpxaxvs" path="res://textures/new-flashlight-texture-v0-urfeu50bf8hb1.webp" id="3_bvueo"]
 [ext_resource type="Script" uid="uid://dtcbit8svedlp" path="res://Scripts/microphoneScript.gd" id="4_b2yaj"]
+[ext_resource type="AudioStream" uid="uid://dfk8tbqqyv102" path="res://sounds/Ambiente/Luz.ogg" id="4_umdqk"]
 [ext_resource type="Script" uid="uid://cq4n44d8x82ak" path="res://Scripts/enemy_scripts/enemy_1.gd" id="4_xvgsr"]
 [ext_resource type="Script" uid="uid://u8k3dsun3gfh" path="res://Scripts/poste.gd" id="5_b2yaj"]
+[ext_resource type="AudioStream" uid="uid://bq8eu0x1qt07s" path="res://sounds/Ambiente/Viento.ogg" id="5_dvicb"]
 [ext_resource type="PackedScene" uid="uid://mjflx36qj0yt" path="res://scenes/watcher.tscn" id="5_ifh66"]
 [ext_resource type="Script" uid="uid://c6vni4fvrnbwv" path="res://Scripts/enemy_scripts/runner.gd" id="5_oqwcg"]
+[ext_resource type="Shader" uid="uid://cwrjp0qwic8ma" path="res://textures/shaders/VHS.gdshader" id="7_d7w74"]
 [ext_resource type="Script" uid="uid://c8qsvyclvgjgi" path="res://scenes/collision_shape_3d.gd" id="8_b2yaj"]
 [ext_resource type="PackedScene" uid="uid://doyin5n2o4hub" path="res://scenes/runner_moving.tscn" id="8_cptob"]
+[ext_resource type="Script" uid="uid://qvja38f53qi5" path="res://Scripts/sounds.gd" id="10_1enmr"]
+[ext_resource type="AudioStream" uid="uid://br3p0supjy4jh" path="res://sounds/Ambiente/Buho.ogg" id="11_aj7ea"]
+[ext_resource type="Texture2D" uid="uid://cr6gwtm7o7vso" path="res://textures/satara_night_no_lamps_4k.hdr" id="13_6l3rs"]
+[ext_resource type="AudioStream" uid="uid://bslx8wxehmepj" path="res://sounds/Ambiente/Aullido.ogg" id="16_bvueo"]
+[ext_resource type="AudioStream" uid="uid://c8hfiyv6k0idq" path="res://sounds/Ambiente/Grillos.ogg" id="17_d7w74"]
+[ext_resource type="AudioStream" uid="uid://bp4os0w6878s7" path="res://sounds/Ambiente/Rama Quebrandose.ogg" id="18_0814m"]
+[ext_resource type="AudioStream" uid="uid://djlvnmetou5mm" path="res://sounds/Ambiente/Moscas.ogg" id="22_0814m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_noarx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a0tk4"]
 margin = 0.187
 radius = 0.2
-height = 0.48
+height = 0.776823
 
 [sub_resource type="GDScript" id="GDScript_t3l2h"]
 script/source = "extends Node3D
@@ -52,6 +63,7 @@ var look_at_enemy_watcher = false
 var enemy_ref = null  
 var look_strength = 0.25
 
+
 func focus_on_watcher(watcher_node):
 	look_at_enemy_watcher = true
 	enemy_ref = watcher_node
@@ -66,6 +78,7 @@ func _process(delta):
 
 
 func unfocus_on_watcher():
+	
 	look_at_enemy_watcher = false
 	enemy_ref = null
 "
@@ -76,6 +89,13 @@ bottom_radius = 0.05
 height = 0.4
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_cptob"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0814m"]
+shader = ExtResource("7_d7w74")
+shader_parameter/tape_wave_amount = 0.001
+shader_parameter/tape_crease_amount = 1.0
+shader_parameter/color_displacement = 0.0
+shader_parameter/lines_velocity = 0.08
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a202f"]
 
@@ -89,11 +109,43 @@ script/source = "extends DirectionalLight3D
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_10v3s"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0814m"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_t312h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3p76"]
 radius = 0.839308
 height = 1.95086
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dvicb"]
+sky_top_color = Color(0.336608, 0.336608, 0.336608, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+sky_curve = 0.321529
+sky_energy_multiplier = 4.0
+sky_cover = ExtResource("13_6l3rs")
+ground_curve = 0.000473661
+ground_energy_multiplier = 0.0
+sun_curve = 0.409812
+
+[sub_resource type="Sky" id="Sky_bvueo"]
+sky_material = SubResource("ProceduralSkyMaterial_dvicb")
+
+[sub_resource type="Environment" id="Environment_d7w74"]
+background_mode = 2
+sky = SubResource("Sky_bvueo")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.0
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_sky_affect = 0.0
+fog_height_density = -1.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.6
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+volumetric_fog_length = 100.0
+volumetric_fog_detail_spread = 6.0
+volumetric_fog_sky_affect = 0.998
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00110292, 4.76837e-07, 0.0153861)
@@ -105,11 +157,10 @@ script = ExtResource("2_5t4e2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146754, 1.20754, -0.0683413)
-visible = false
 mesh = SubResource("CapsuleMesh_noarx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14644, 1.18008, -0.0649388)
+transform = Transform3D(2.60546, 0, 0, 0, 2.60546, 0, 0, 0, 2.60546, 0.14644, 1.18008, -0.0649385)
 shape = SubResource("CapsuleShape3D_a0tk4")
 
 [node name="Node3D" type="Node3D" parent="Player"]
@@ -127,10 +178,15 @@ mesh = SubResource("CylinderMesh_oqwcg")
 skeleton = NodePath("../../..")
 
 [node name="Linterna" type="SpotLight3D" parent="Player/Node3D/Camera3D/FlashLight"]
-transform = Transform3D(-0.998788, -0.0108646, -0.0480135, -0.0478448, -0.0152863, 0.998738, -0.0115849, 0.999824, 0.014748, 0.0224533, -0.193217, -0.216217)
-light_color = Color(1, 1, 0.592157, 1)
-spot_range = 6.0
-spot_angle = 28.66
+transform = Transform3D(-0.999645, -0.0110406, -0.0242762, -0.0241091, -0.0150255, 0.999597, -0.0114009, 0.999826, 0.014754, 0.0224533, -0.193217, -0.216217)
+light_energy = 40.0
+light_volumetric_fog_energy = 0.0
+light_projector = ExtResource("3_bvueo")
+light_size = 1.0
+shadow_enabled = true
+shadow_blur = 0.5
+spot_range = 11.468
+spot_angle = 21.2761
 script = ExtResource("3_1enmr")
 
 [node name="MicInput" type="Control" parent="Player/Node3D"]
@@ -147,13 +203,26 @@ autoplay = true
 bus = &"Microphone"
 
 [node name="ProgressBar" type="ProgressBar" parent="Player/Node3D/MicInput/AudioStreamMicrophone"]
-offset_left = 71.0
-offset_top = 561.0
-offset_right = 381.0
-offset_bottom = 600.0
+offset_left = 51.0
+offset_top = 500.0
+offset_right = 361.0
+offset_bottom = 539.0
+rotation = -1.57668
 min_value = -60.0
 max_value = 0.0
 show_percentage = false
+
+[node name="Wind" type="AudioStreamPlayer3D" parent="Player/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0874106, -0.696053, 0)
+stream = ExtResource("5_dvicb")
+volume_db = -70.0
+autoplay = true
+
+[node name="Shader" type="ColorRect" parent="Player/Node3D"]
+material = SubResource("ShaderMaterial_0814m")
+offset_right = 1156.0
+offset_bottom = 650.0
+mouse_filter = 2
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(47.7256, 0, 0, 0, 2.51042, 0, 0, 0, 38.8671, 0, 0, 0)
@@ -172,15 +241,27 @@ transform = Transform3D(1, 0, 0, 0, -0.511083, 0.859531, 0, -0.859531, -0.511083
 script = SubResource("GDScript_10v3s")
 
 [node name="Poste" type="SpotLight3D" parent="La lucecita"]
-transform = Transform3D(1, 0, 0, 0, 0.841426, -0.540372, 0, 0.540372, 0.841426, 0, -1.22451, 2.05936)
-spot_range = 3.941
+transform = Transform3D(1, 0, 0, 0, 0.841426, -0.540372, 0, 0.540372, 0.841426, 0.147451, -1.62965, 2.74072)
+shadow_enabled = true
+spot_range = 4.37719
 spot_attenuation = -3.53
 spot_angle = 36.63
 script = ExtResource("5_b2yaj")
 
+[node name="LightSound" type="AudioStreamPlayer3D" parent="La lucecita/Poste"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0218679, 0.634801)
+stream = ExtResource("4_umdqk")
+volume_db = -15.0
+autoplay = true
+max_distance = 10.0
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="La lucecita"]
 transform = Transform3D(0.203964, 0, 0, 0, 0.954799, 0.152045, 0, -1.56938, 0.0925034, 0.145345, -0.686628, 1.20043)
 mesh = SubResource("CylinderMesh_10v3s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="La lucecita/MeshInstance3D"]
+shape = SubResource("CylinderShape3D_0814m")
+debug_fill = false
 
 [node name="Watcher" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98239, 5.94797, 3.80552)
@@ -208,3 +289,66 @@ script = ExtResource("8_b2yaj")
 
 [node name="RunnerMoving" parent="Runner" instance=ExtResource("8_cptob")]
 transform = Transform3D(-7.13428, 0, -6.23699e-07, 0, 7.13428, 0, 6.23699e-07, 0, -7.13428, 0, 0, 0)
+
+[node name="ambient sounds" type="Node3D" parent="."]
+script = ExtResource("10_1enmr")
+
+[node name="Owl" type="AudioStreamPlayer3D" parent="ambient sounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.47025, 1.15377, -17.5758)
+stream = ExtResource("11_aj7ea")
+volume_db = -20.0
+pitch_scale = 0.7
+max_distance = 40.0
+
+[node name="OwlTimer" type="Timer" parent="ambient sounds/Owl"]
+process_callback = 0
+wait_time = 10.0
+autostart = true
+
+[node name="Howl" type="AudioStreamPlayer3D" parent="ambient sounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.0582, 2.25695, 0)
+stream = ExtResource("16_bvueo")
+volume_db = -8.0
+pitch_scale = 0.75
+max_distance = 100.0
+
+[node name="HowlTimer" type="Timer" parent="ambient sounds/Howl"]
+wait_time = 20.0
+autostart = true
+
+[node name="Irons" type="AudioStreamPlayer3D" parent="ambient sounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.3129, 0.792228, 0)
+stream = ExtResource("17_d7w74")
+max_distance = 50.0
+
+[node name="IronsTimer" type="Timer" parent="ambient sounds/Irons"]
+wait_time = 15.0
+autostart = true
+
+[node name="Branch Breaking" type="AudioStreamPlayer3D" parent="ambient sounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.623, 0, 0)
+stream = ExtResource("18_0814m")
+volume_db = 10.0
+max_distance = 40.0
+
+[node name="BranchBreakingTimer" type="Timer" parent="ambient sounds/Branch Breaking"]
+wait_time = 120.0
+autostart = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_d7w74")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1764, 0, 0)
+
+[node name="Flies" type="AudioStreamPlayer3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.74038, 0.18336, -0.0603991)
+stream = ExtResource("22_0814m")
+volume_db = -10.0
+autoplay = true
+max_distance = 6.0
+
+[connection signal="timeout" from="ambient sounds/Owl/OwlTimer" to="ambient sounds" method="_on_owl_timer_timeout"]
+[connection signal="timeout" from="ambient sounds/Howl/HowlTimer" to="ambient sounds" method="_on_howl_timer_timeout"]
+[connection signal="timeout" from="ambient sounds/Irons/IronsTimer" to="ambient sounds" method="_on_irons_timer_timeout"]
+[connection signal="timeout" from="ambient sounds/Branch Breaking/BranchBreakingTimer" to="ambient sounds" method="_on_branch_breaking_timer_timeout"]
