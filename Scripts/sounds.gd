@@ -11,18 +11,6 @@ func _ready():
 		for sound in node.get_children():
 			sound.timeout.connect(_on_timer_timeout.bind(node))
 
-func _on_timer_timeout(player):
-	player.play()
-
-func _physics_process(delta):
-	for node in get_children():
-		for sound in node.get_children():
-			if sound.time_left < 2:
-				sound_movement(irons)
-				sound_movement(owl)
-	
-	#if $Owl/OwlTimer.time_left < 2 :
-	#	owl.position = player.position + Vector3(30, 0, 0)
-
-func sound_movement(sound):
-	sound.position = player.position + posicion[randi() % posicion.size()]
+func _on_timer_timeout(soundNode):
+	soundNode.position = player.position + posicion[randi() % posicion.size()]
+	soundNode.play()
